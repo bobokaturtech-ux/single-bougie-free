@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bobo Katur | Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --columbia-blue: #c7e8f3;
+      --wisteria: #bf9aca;
+      --quinacridone-magenta: #8e4162;
+      --jet: #41393e;
+      --amaranth-pink: #eda2c0;
+      --sky-magenta: #DC6BAD;
+      --hot-pink: #fc6dab;
+      --fandango: #af4695;
+      --byzantium: #752f63;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--byzantium);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(220, 107, 173, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175, 70, 149, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(117, 47, 99, 1) 0%, #3a1530 100%);
+      animation: bgShift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb1 { width: 400px; height: 400px; background: var(--hot-pink); top: -100px; right: -100px; animation-delay: 0s; }
+    .orb2 { width: 300px; height: 300px; background: var(--columbia-blue); bottom: -50px; left: -50px; animation-delay: 4s; }
+    .orb3 { width: 200px; height: 200px; background: var(--wisteria); top: 50%; left: 30%; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(20px, -20px) scale(1.05); }
+      66% { transform: translate(-15px, 15px) scale(0.95); }
+    }
+
+    /* Main content */
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3em 2em;
+      text-align: center;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75em;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amaranth-pink);
+      border: 1px solid rgba(237, 162, 192, 0.4);
+      padding: 0.4em 1.2em;
+      border-radius: 100px;
+      margin-bottom: 1.5em;
+      animation: fadeDown 0.8s ease forwards;
+      opacity: 0;
+      background: rgba(237, 162, 192, 0.08);
+    }
+
+    /* Title */
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8em, 8vw, 5.5em);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 0.2em;
+      animation: fadeDown 0.8s ease 0.15s forwards;
+      opacity: 0;
+    }
+
+    .title span {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--amaranth-pink);
+    }
+
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1em, 3vw, 1.5em);
+      font-style: italic;
+      color: var(--wisteria);
+      margin-bottom: 2.5em;
+      animation: fadeDown 0.8s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    /* Divider */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      margin: 0 auto 2.5em;
+      animation: fadeDown 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    /* Bio card */
+    .bio {
+      max-width: 700px;
+      font-size: clamp(0.95em, 2.5vw, 1.1em);
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 3em;
+      animation: fadeDown 0.8s ease 0.5s forwards;
+      opacity: 0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2em 2.5em;
+      backdrop-filter: blur(10px);
+    }
+
+    .bio strong {
+      color: var(--amaranth-pink);
+    }
+
+    /* Buttons */
+    .buttons {
+      display: flex;
+      gap: 1.2em;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeDown 0.8s ease 0.65s forwards;
+      opacity: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05em;
+      font-weight: 500;
+      padding: 0.85em 2em;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sky-magenta), var(--hot-pink));
+      color: white;
+      box-shadow: 0 4px 20px rgba(220, 107, 173, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(220, 107, 173, 0.55);
+    }
+
+    .btn-secondary {
+      background: rgba(199, 232, 243, 0.12);
+      color: var(--columbia-blue);
+      border: 1.5px solid rgba(199, 232, 243, 0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(199, 232, 243, 0.2);
+      box-shadow: 0 8px 28px rgba(199, 232, 243, 0.15);
+    }
+
+    .btn-icon {
+      font-size: 1.1em;
+    }
+
+    /* Footer note */
+    .footnote {
+      margin-top: 3em;
+      font-size: 0.8em;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+      animation: fadeDown 0.8s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .bio { padding: 1.5em; }
+      .buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="container">
+    <div class="badge">AWS Portfolio Project · Katurah Bobo</div>
+
+    <h1 class="title">Single.<span> Bougie.</span> Free.</h1>
+    <p class="subtitle">An AWS-Powered Wellness Community for Women</p>
+    <div class="divider"></div>
+
+    <div class="bio">
+      <p>Hey, I'm <strong>Katurah Bobo</strong> — a 4-year State Farm claims adjuster by day, and an aspiring Cloud Solutions Architect with a focus on FinOps by night. When I transitioned out of a long-term marriage, I found a lot of noise on social media but very few real resources for women who wanted to <strong>embrace their singleness</strong> rather than just survive it. So I built one.</p>
+      <br>
+      <p><strong>Single Bougie Free</strong> is a wellness community for women learning to heal, pour into themselves, and thrive — not just wait for the next relationship. And because I'm a cloud nerd in progress, I used it as my hands-on AWS portfolio: real infrastructure, real pipelines, real data — <strong>built by me, for a cause I actually believe in.</strong></p>
+      <br>
+      <p style="font-size:0.85em; color: rgba(255,255,255,0.4); font-style: italic;">A Bobo Katur Project</p>
+    </div>
+
+    <div class="buttons">
+      <a href="./home.html" class="btn btn-primary">
+        <span class="btn-icon">🩷</span> Enter the Site
+      </a>
+      <a href="./tech.html" class="btn btn-secondary">
+        <span class="btn-icon">👑</span> What's Coming
+      </a>
+      <a href="./tech.html" class="btn btn-secondary">
+        <span class="btn-icon">☁️</span> View Tech Portfolio
+      </a>
+    </div>
+
+    <p class="footnote">Built on AWS · S3 · CloudFront · Route 53 · Lambda · Kinesis · QuickSight</p>
+  </div>
+</body>
+</html>

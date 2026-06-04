@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A wellness community for women learning to heal, pour into themselves, and thrive.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/svg" href="./images/sbf.svg">
+  <style>
+    /* ── PAGE-SPECIFIC: home.html ── */
+    body { background: #1a0a14; color: white; min-height: 100vh; }
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220, 107, 173, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175, 70, 149, 0.3) 0%, transparent 50%),
+        #1a0a14;
+    }
+    .orb1 { width: 400px; height: 400px; background: var(--hot-pink); top: -100px; right: -100px; }
+    .orb2 { width: 300px; height: 300px; background: var(--columbia-blue); bottom: -50px; left: -50px; animation-delay: 4s; }
+      50% { transform: translate(15px, -15px); }
+    }
+    .content { position: relative; z-index: 1; }/* ── HERO ── */
+    .hero {
+      text-align: center; padding: 5em 2em 4em;
+      max-width: 800px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block; font-size: 0.75em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink); border: 1px solid rgba(237,162,192,0.35);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.5em;
+      background: rgba(237,162,192,0.07);
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5em, 7vw, 4.5em);
+      font-weight: 700; line-height: 1.1; margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .hero-sub {
+      font-size: 1.1em; line-height: 1.8;
+      color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 2.5em;
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+    .hero-divider {
+      width: 50px; height: 2px; margin: 0 auto 2.5em;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0;
+    }
+
+    /* ── SECTION CARDS ── */
+    .sections {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em; max-width: 1000px; margin: 0 auto;
+      padding: 0 2em 4em; animation: fadeUp 0.8s ease 0.5s forwards; opacity: 0;
+    }
+    .section-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 2em;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+      text-decoration: none; color: white; display: block;
+    }
+    .section-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .section-card:hover { transform: translateY(-4px); border-color: rgba(220,107,173,0.3); }
+    .section-card:hover::before { opacity: 1; }
+    .card-emoji { font-size: 2em; margin-bottom: 0.6em; display: flex; align-items: center; justify-content: center; height: 80px; }
+    .card-emoji svg { display: block; }
+    .section-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5em;
+      margin-bottom: 0.5em; color: white;
+    }
+    .section-card p { font-size: 0.9em; line-height: 1.7; color: rgba(255,255,255,0.55); }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4em;
+      margin-top: 1.2em; font-size: 0.85em; font-weight: 500;
+      color: var(--sky-magenta); transition: gap 0.2s;
+    }
+    .section-card:hover .card-link { gap: 0.7em; }
+
+    /* ── READY BANNER ── */
+    .ready-banner {
+      max-width: 700px; margin: 0 auto 5em; padding: 0 2em;
+      animation: fadeUp 0.8s ease 0.65s forwards; opacity: 0;
+    }
+    .ready {
+      background: linear-gradient(135deg, var(--sky-magenta), var(--hot-pink));
+      border-radius: 16px; padding: 1.5em 2em; text-align: center;
+      box-shadow: 0 8px 30px rgba(220,107,173,0.3);
+    }
+    .ready p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.4em; line-height: 1.5; color: white;
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay.open
+
+    /* Tea cup deco */
+    .modal-title em { font-style: italic; color: var(--fandango); }
+
+    /* Form fields */
+
+    /* Opt-in pill toggle */
+    .optin-btn
+    .optin-btn.selected
+
+    /* Submit button */
+
+    /* ── THANK YOU POP-UP ── */
+    .thankyou-overlay.open
+    .thankyou-close:hover { transform: translateY(-2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="content">
+    <nav>
+      <a href="./index.html" class="active">Home</a>
+      <a href="./single.html">Single</a>
+      <a href="./bougie.html">Bougie</a>
+      <a href="./free.html">Free</a>
+      <a href="./archive.html">The Tea Vault</a>
+      <a href="./tech.html">Tech &amp; Coming Soon</a>
+
+      <!-- Contact Dropdown -->
+      <div class="nav-contact">
+        <button class="nav-contact-btn" id="contactBtn" onclick="toggleDropdown()">
+          Contact <span class="chevron">▾</span>
+        </button>
+        <div class="contact-dropdown" id="contactDropdown">
+          <div class="dropdown-item" onclick="openModal('sbf')">
+            <span class="di-icon">🩷</span>
+            <span class="di-label">
+              For the Baddies
+              <span class="di-sub">Spill your tea with us</span>
+            </span>
+          </div>
+          <div class="dropdown-item" onclick="openModal('tech')">
+            <span class="di-icon">⚙️</span>
+            <span class="di-label">
+              I'm a Techie
+              <span class="di-sub">Let's talk shop</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-badge">Welcome to the Community</div>
+      <h1 style="display:flex;flex-direction:column;align-items:center;line-height:1.2;"><span>Single.</span><em>Bougie.</em><span>Free.</span></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">A safe space of sisterhood where we learn to love ourselves first. Whether you're in a single season or choosing it on purpose — this is your community.</p>
+    </section>
+
+    <div class="sections">
+      <a href="./single.html" class="section-card">
+        <span class="card-emoji">
+          <svg viewBox="0 0 680 300" width="160" height="72" role="img" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;overflow:visible;">
+            <defs>
+              <linearGradient id="ballG" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#bf9aca"/>
+                <stop offset="100%" stop-color="#752f63"/>
+              </linearGradient>
+              <linearGradient id="chainG" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#eda2c0"/>
+                <stop offset="100%" stop-color="#bf9aca"/>
+              </linearGradient>
+              <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fc6dab" stop-opacity="1"/>
+                <stop offset="60%" stop-color="#af4695" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#fc6dab" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <style>
+    /* ── PAGE-SPECIFIC: home.html ── */
+    body { background: #1a0a14; color: white; min-height: 100vh; }
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220, 107, 173, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175, 70, 149, 0.3) 0%, transparent 50%),
+        #1a0a14;
+    }
+    .orb1 { width: 400px; height: 400px; background: var(--hot-pink); top: -100px; right: -100px; }
+    .orb2 { width: 300px; height: 300px; background: var(--columbia-blue); bottom: -50px; left: -50px; animation-delay: 4s; }
+      50% { transform: translate(15px, -15px); }
+    }
+    .content { position: relative; z-index: 1; }/* ── HERO ── */
+    .hero {
+      text-align: center; padding: 5em 2em 4em;
+      max-width: 800px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block; font-size: 0.75em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink); border: 1px solid rgba(237,162,192,0.35);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.5em;
+      background: rgba(237,162,192,0.07);
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5em, 7vw, 4.5em);
+      font-weight: 700; line-height: 1.1; margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .hero-sub {
+      font-size: 1.1em; line-height: 1.8;
+      color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 2.5em;
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+    .hero-divider {
+      width: 50px; height: 2px; margin: 0 auto 2.5em;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0;
+    }
+
+    /* ── SECTION CARDS ── */
+    .sections {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em; max-width: 1000px; margin: 0 auto;
+      padding: 0 2em 4em; animation: fadeUp 0.8s ease 0.5s forwards; opacity: 0;
+    }
+    .section-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 2em;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+      text-decoration: none; color: white; display: block;
+    }
+    .section-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .section-card:hover { transform: translateY(-4px); border-color: rgba(220,107,173,0.3); }
+    .section-card:hover::before { opacity: 1; }
+    .card-emoji { font-size: 2em; margin-bottom: 0.6em; display: flex; align-items: center; justify-content: center; height: 80px; }
+    .card-emoji svg { display: block; }
+    .section-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5em;
+      margin-bottom: 0.5em; color: white;
+    }
+    .section-card p { font-size: 0.9em; line-height: 1.7; color: rgba(255,255,255,0.55); }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4em;
+      margin-top: 1.2em; font-size: 0.85em; font-weight: 500;
+      color: var(--sky-magenta); transition: gap 0.2s;
+    }
+    .section-card:hover .card-link { gap: 0.7em; }
+
+    /* ── READY BANNER ── */
+    .ready-banner {
+      max-width: 700px; margin: 0 auto 5em; padding: 0 2em;
+      animation: fadeUp 0.8s ease 0.65s forwards; opacity: 0;
+    }
+    .ready {
+      background: linear-gradient(135deg, var(--sky-magenta), var(--hot-pink));
+      border-radius: 16px; padding: 1.5em 2em; text-align: center;
+      box-shadow: 0 8px 30px rgba(220,107,173,0.3);
+    }
+    .ready p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.4em; line-height: 1.5; color: white;
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay.open
+
+    /* Tea cup deco */
+    .modal-title em { font-style: italic; color: var(--fandango); }
+
+    /* Form fields */
+
+    /* Opt-in pill toggle */
+    .optin-btn
+    .optin-btn.selected
+
+    /* Submit button */
+
+    /* ── THANK YOU POP-UP ── */
+    .thankyou-overlay.open
+    .thankyou-close:hover { transform: translateY(-2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+            <g class="ball-shake">
+              <circle cx="130" cy="155" r="72" fill="url(#ballG)"/>
+              <ellipse cx="108" cy="128" rx="18" ry="12" fill="rgba(255,255,255,0.15)" transform="rotate(-30 108 128)"/>
+              <path d="M118,118 C122,130 117,140 122,150 C126,159 123,169 127,176" stroke="#fc6dab" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M126,116 C129,127 126,135 130,145" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+              <ellipse cx="134" cy="228" rx="66" ry="13" fill="#1a0a14" opacity="0.28"/>
+            </g>
+            <g class="chain-left">
+              <ellipse cx="218" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="248" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="278" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="308" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="338" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <path d="M354,145 C362,137 360,130 352,133" stroke="#fc6dab" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <path d="M356,155 C365,148 364,140 356,143" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+              <path d="M354,165 C362,160 361,152 353,155" stroke="#fc6dab" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+            </g>
+            <g class="chain-right">
+              <path d="M386,145 C378,137 380,130 388,133" stroke="#fc6dab" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <path d="M384,155 C375,148 376,140 384,143" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+              <path d="M386,165 C378,160 379,152 387,155" stroke="#fc6dab" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+              <ellipse cx="402" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="432" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="462" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="492" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="522" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="4"/>
+              <ellipse cx="552" cy="155" rx="14" ry="8" fill="none" stroke="url(#chainG)" stroke-width="3.5"/>
+            </g>
+            <circle cx="370" cy="150" r="42" fill="url(#glowG)" class="snap-glow"/>
+            <circle cx="370" cy="150" r="8" fill="#fc6dab" class="snap-glow"/>
+            <g class="spark1"><line x1="370" y1="150" x2="350" y2="126" stroke="#fc6dab" stroke-width="2.5" stroke-linecap="round"/><circle cx="350" cy="126" r="3.5" fill="#fc6dab"/></g>
+            <g class="spark2"><line x1="370" y1="150" x2="392" y2="130" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="392" cy="130" r="3.5" fill="white"/></g>
+            <g class="spark3"><line x1="370" y1="150" x2="344" y2="164" stroke="#fc6dab" stroke-width="2.2" stroke-linecap="round"/><circle cx="344" cy="164" r="3" fill="#fc6dab"/></g>
+            <g class="spark4"><line x1="370" y1="150" x2="394" y2="166" stroke="#eda2c0" stroke-width="2.2" stroke-linecap="round"/><circle cx="394" cy="166" r="3" fill="#eda2c0"/></g>
+            <g class="spark5"><line x1="370" y1="150" x2="370" y2="120" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="370" cy="120" r="3.5" fill="white"/></g>
+          </svg>
+        </span>
+        <h2>Single</h2>
+        <p>Are you newly single and looking for ways to cope? Or been single for a while and need a pick-me-up? This is for you.</p>
+        <span class="card-link">Explore →</span>
+      </a>
+      <a href="./bougie.html" class="section-card">
+        <span class="card-emoji">✨</span>
+        <h2>Bougie</h2>
+        <p>Bougie is a mindset. It's living with the confidence to make yourself the luxury — luxurious self love, not luxury things.</p>
+        <span class="card-link">Get bougie →</span>
+      </a>
+      <a href="./free.html" class="section-card">
+        <span class="card-emoji">🕊️</span>
+        <h2>Free</h2>
+        <p>Freedom from negative self-talk and the defeating mindset. Let's free our minds and learn who we are and what we can become.</p>
+        <span class="card-link">Find freedom →</span>
+      </a>
+    </div>
+
+    <div class="ready-banner">
+      <div class="ready">
+        <p>Are you ready to be a SBF Baddie?<br>Let's do it together! 🩷</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SPILL THE TEA MODAL ══ -->
+  <div class="modal-overlay" id="sbfModal" onclick="handleOverlayClick(event,'sbfModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('sbfModal')">✕</button>
+      <div class="modal-deco">🫖</div>
+      <h2 class="modal-title"><em>Spill the Tea</em></h2>
+      <p class="modal-prompt">What features would you like to see? Is there a resource or website that can help others? Drop the link here. Or just tell me what you think? All tea is accepted!</p>
+
+      <div class="modal-field">
+        <label for="sbf-name">Your Name</label>
+        <input type="text" id="sbf-name" placeholder="What do they call you, Baddie?">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-email">Email</label>
+        <input type="email" id="sbf-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-tea">The Tea ☕</label>
+        <textarea id="sbf-tea" placeholder="Pour it all out..." maxlength="500" oninput="updateCharCount(this,'sbf-count')"></textarea>
+        <div class="char-count" id="sbf-count">0 / 500</div>
+      </div>
+
+      <div class="optin-wrap">
+        <button class="optin-btn" id="optinBtn" onclick="toggleOptin()">
+          <span class="optin-check" id="optinCheck"></span>
+          Keep me in the tea with updates
+        </button>
+      </div>
+
+      <button class="modal-submit" onclick="submitSBF()">Send It 🩷</button>
+    </div>
+  </div>
+
+  <!-- ══ THANK YOU POP-UP ══ -->
+  <div class="thankyou-overlay" id="thankyouOverlay" onclick="closeThankyou()">
+    <div class="thankyou-card" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">🩷</div>
+      <div class="thankyou-title">Thanks Baddie!</div>
+      <div class="thankyou-sub">The tea has been received.<br>We see you and we appreciate you.</div>
+      <div class="thankyou-sig">Love, Katurah</div>
+      <button class="thankyou-close" onclick="closeThankyou()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Dropdown ──
+    function toggleDropdown() {
+      const btn = document.getElementById('contactBtn');
+      const dd  = document.getElementById('contactDropdown');
+      btn.classList.toggle('open');
+      dd.classList.toggle('open');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const wrap = document.querySelector('.nav-contact');
+      if (!wrap.contains(e.target)) {
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+
+    // ── Modals ──
+    function openModal(type) {
+      // close dropdown first
+      document.getElementById('contactBtn').classList.remove('open');
+      document.getElementById('contactDropdown').classList.remove('open');
+
+      if (type === 'sbf') {
+        document.getElementById('sbfModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      // tech modal coming soon
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e, id) {
+      if (e.target === document.getElementById(id)) closeModal(id);
+    }
+
+    // ── Char counter ──
+    function updateCharCount(el, countId) {
+      const count = el.value.length;
+      const countEl = document.getElementById(countId);
+      countEl.textContent = count + ' / 500';
+      countEl.classList.toggle('warn', count > 450);
+    }
+
+    // ── Opt-in toggle ──
+    let optedIn = false;
+    function toggleOptin() {
+      optedIn = !optedIn;
+      document.getElementById('optinBtn').classList.toggle('selected', optedIn);
+      document.getElementById('optinCheck').textContent = optedIn ? '✓' : '';
+    }
+
+    // ── Submit ──
+    async function submitSBF() {
+      const name  = document.getElementById('sbf-name').value.trim();
+      const email = document.getElementById('sbf-email').value.trim();
+      const tea   = document.getElementById('sbf-tea').value.trim();
+
+      if (!name || !email) {
+        alert('Hey Baddie — we need your name and email! 🩷');
+        return;
+      }
+
+      const payload = {
+        formType: 'spill-the-tea',
+        name,
+        email,
+        message: tea,
+        optIn: optedIn,
+        submittedAt: new Date().toISOString()
+      };
+
+      const btn = document.querySelector('#sbfModal .modal-submit');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('sbfModal');
+        document.getElementById('thankyouOverlay').classList.add('open');
+        document.getElementById('sbf-name').value = '';
+        document.getElementById('sbf-email').value = '';
+        document.getElementById('sbf-tea').value = '';
+        document.getElementById('sbf-count').textContent = '0 / 500';
+        optedIn = false;
+        document.getElementById('optinBtn').classList.remove('selected');
+        document.getElementById('optinCheck').textContent = '';
+      } catch (err) {
+        alert('Something went wrong — please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send It 🩷';
+      }
+    }
+
+    function closeThankyou() {
+      document.getElementById('thankyouOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ESC key closes any open modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('sbfModal');
+        closeThankyou();
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

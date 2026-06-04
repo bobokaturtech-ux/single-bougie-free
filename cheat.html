@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Cheat Sheet</title>
+<style>
+  :root {
+    --tyrian-purple: #501636;
+    --light-coral: #ef9995;
+    --saffron: #edc55a;
+    --white: #ffffff;
+    --black-olive: #3d3f3c;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--black-olive);
+    padding: 20px;
+  }
+
+  h1 {
+    color: var(--tyrian-purple);
+  }
+
+  .btn {
+    background-color: var(--tyrian-purple);
+    color: var(--white);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: var(--saffron);
+  }
+
+  .form-input {
+    padding: 6px;
+    border: 1px solid var(--black-olive);
+    border-radius: 4px;
+  }
+
+  .highlight {
+    color: var(--light-coral);
+  }
+
+  .section {
+    border: 1px solid var(--light-coral);
+    padding: 10px;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>CSS Style Punch List</h1>
+
+<h2>Colors (CSS Variables)</h2>
+<ul>
+<li>--tyrian-purple: #501636;</l>
+<li>--thulian-pink: #e774a2;</l>
+<li>--amber: #FFBF00;</l>
+<li>--white: #ffffff;</l>
+<li>--black-olive: #3d3f3c;</l>
+
+</ul>
+
+
+</ul>
+<br>
+<h2>Single Page</h2><ul>
+    <li> border and center pic class:"single-pic"</li>
+    <li>put all the pages back in the nav menu</li>
+    <li>center whole page</li>
+    <li>fix the caption,class: "singlecaption", give it a diff color</li>
+    <li> hover stuff with the link. Class:"single-link"</li>
+    </ul>
+    <br>
+    <h2>Bougie Page</h2>
+    <ul>
+        <li>Center page</li>
+        <li>make background of table amaranth-pink:#ED96B9</li>
+        </ul>
+    <br>
+<h2> Free Page</h2>    
+<ul>
+    <li>change the border color</li>
+    <li>change color of class:"message-heading" and class:"self-p" </li>
+    <li> put the class"form" into a flexbox and and special box</li>
+    <change
+</ul>
+
+</body>
+</html>
+/* CSS HEX */
+--columbia-blue: #c7e8f3ff;
+--wisteria: #bf9acaff;
+--quinacridone-magenta: #8e4162ff;
+--jet: #41393eff;
+--amaranth-pink: #eda2c0ff;
+
+/* CSS HSL */
+--columbia-blue: hsla(195, 65%, 87%, 1);
+--wisteria: hsla(286, 31%, 70%, 1);
+--quinacridone-magenta: hsla(334, 37%, 41%, 1);
+--jet: hsla(323, 7%, 24%, 1);
+--amaranth-pink: hsla(336, 68%, 78%, 1);
+
+/* SCSS HEX */
+$columbia-blue: #c7e8f3ff;
+$wisteria: #bf9acaff;
+$quinacridone-magenta: #8e4162ff;
+$jet: #41393eff;
+$amaranth-pink: #eda2c0ff;
+
+/* SCSS HSL */
+$columbia-blue: hsla(195, 65%, 87%, 1);
+$wisteria: hsla(286, 31%, 70%, 1);
+$quinacridone-magenta: hsla(334, 37%, 41%, 1);
+$jet: hsla(323, 7%, 24%, 1);
+$amaranth-pink: hsla(336, 68%, 78%, 1);
+
+/* SCSS RGB */
+$columbia-blue: rgba(199, 232, 243, 1);
+$wisteria: rgba(191, 154, 202, 1);
+$quinacridone-magenta: rgba(142, 65, 98, 1);
+$jet: rgba(65, 57, 62, 1);
+$amaranth-pink: rgba(237, 162, 192, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-right: linear-gradient(90deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-bottom: linear-gradient(180deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-left: linear-gradient(270deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-top-right: linear-gradient(45deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-bottom-right: linear-gradient(135deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-top-left: linear-gradient(225deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-bottom-left: linear-gradient(315deg, #c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);
+$gradient-radial: radial-gradient(#c7e8f3ff, #bf9acaff, #8e4162ff, #41393eff, #eda2c0ff);

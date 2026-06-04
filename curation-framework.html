@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SBF Curation Framework</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'DM Sans', sans-serif;
+      background: #1a0a14;
+      color: #fff;
+      line-height: 1.7;
+    }
+    
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220,107,173,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175,70,149,0.2) 0%, transparent 50%),
+        #1a0a14;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fc6dab, #DC6BAD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 3rem;
+      font-size: 1.1em;
+    }
+    
+    .month-section {
+      margin-bottom: 4rem;
+    }
+    
+    .month-header {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: #c7e8f3;
+      margin-bottom: 0.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(199,232,243,0.3);
+    }
+    
+    .month-goal {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    
+    .section-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(220,107,173,0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .section-name {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #eda2c0;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-theme {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 1.5rem;
+      font-size: 0.95em;
+    }
+    
+    .cue-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .cue-label {
+      font-size: 0.9em;
+      color: #c7e8f3;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cue-list {
+      list-style: none;
+      margin-left: 0;
+    }
+    
+    .cue-list li {
+      color: rgba(255,255,255,0.8);
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      font-size: 0.95em;
+    }
+    
+    .cue-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #af4695;
+    }
+    
+    .tips-section {
+      background: rgba(199,232,243,0.08);
+      border: 1px solid rgba(199,232,243,0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+    
+    .tips-title {
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #c7e8f3;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tip {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(199,232,243,0.2);
+    }
+    
+    .tip:last-child {
+      border-bottom: none;
+    }
+    
+    .tip-title {
+      font-weight: 600;
+      color: #eda2c0;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tip-text {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95em;
+    }
+    
+    .example-blurb {
+      background: rgba(175,70,149,0.15);
+      border-left: 3px solid #af4695;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      font-size: 0.95em;
+      color: rgba(255,255,255,0.9);
+      font-style: italic;
+    }
+    
+    .sticky-nav {
+      position: sticky;
+      top: 20px;
+      background: rgba(26,10,20,0.95);
+      border: 1px solid rgba(220,107,173,0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .sticky-nav h3 {
+      color: #eda2c0;
+      margin-bottom: 1rem;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .nav-links a:hover {
+      background: rgba(220,107,173,0.2);
+      color: #eda2c0;
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8em; }
+      .month-header { font-size: 1.4em; }
+      .section-card { padding: 1.5rem; }
+      .sticky-nav { position: static; margin-bottom: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  
+  <div class="content">
+    <h1>SBF Curation Framework</h1>
+    <p class="subtitle">Your guide to curating meaningful newsletters for newly single women</p>
+    
+    <!-- MONTH 1: FOUNDATION -->
+    <div class="month-section" id="foundation">
+      <div class="month-header">Month 1: Foundation</div>
+      <p class="month-goal">Help newly single women establish legal, financial, and emotional basics</p>
+      
+      <div class="section-card">
+        <div class="section-name">Legal</div>
+        <div class="section-theme">Protecting yourself legally after a relationship ends</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about legal documents that need updating (beneficiaries, wills, power of attorney)</li>
+            <li>Consider resources on name changes, custody, or separation agreements if applicable</li>
+            <li>Look for plain-language guides (avoid legalese)</li>
+          </ul>
+        </div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Specific Examples to Consider</div>
+          <ul class="cue-list">
+            <li>"What Documents to Update After a Breakup" type articles</li>
+            <li>State-specific resources on legal rights</li>
+            <li>Trusted legal literacy sites (LawHelp.org, Nolo, etc.)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Mental Health</div>
+        <div class="section-theme">Processing emotions and building emotional stability</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about grief and loss (breakups are grief)</li>
+            <li>Look for articles on journaling, therapy, or processing emotions</li>
+            <li>Consider resources on rebuilding confidence/self-worth</li>
+          </ul>
+        </div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Specific Examples to Consider</div>
+          <ul class="cue-list">
+            <li>Mental health articles from reputable sources (Verywell Mind, Psychology Today)</li>
+            <li>Journaling prompts or guided resources</li>
+            <li>Therapy finding tools (Psychology Today therapist finder, etc.)</li>
+            <li>Articles on "healing after breakup" or "processing loss"</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Self Care</div>
+        <div class="section-theme">Practical self-care routines to stabilize yourself</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about foundational self-care (sleep, nutrition, movement)</li>
+            <li>Look for simple, doable routines (not luxury spa stuff)</li>
+            <li>Consider resources on building sustainable habits</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Career</div>
+        <div class="section-theme">Stabilizing your career and income</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about career planning or upskilling</li>
+            <li>Look for articles on negotiating salary, asking for a raise</li>
+            <li>Consider resources on building professional confidence</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Financial</div>
+        <div class="section-theme">Getting a grip on money basics</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about budgeting for one income</li>
+            <li>Look for articles on emergency funds, debt payoff</li>
+            <li>Consider resources on long-term financial planning</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Spotlight</div>
+        <div class="section-theme">Highlight a woman or resource doing something inspiring</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find a woman (influencer, author, creator, expert) doing something relevant</li>
+            <li>OR a tool/app/resource that's genuinely useful for single women</li>
+            <li>Should feel inspiring, not preachy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MONTH 2: SELF CARE SYSTEMS -->
+    <div class="month-section" id="selfcare">
+      <div class="month-header">Month 2: Self Care Systems</div>
+      <p class="month-goal">Help newly single women BUILD sustainable self-care routines</p>
+      
+      <div class="section-card">
+        <div class="section-name">Legal</div>
+        <div class="section-theme">Legal basics for protecting yourself long-term</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about ongoing legal protection (restraining orders, safety planning if needed)</li>
+            <li>Look for resources on financial independence and legal rights</li>
+            <li>Consider resources on living alone safely (home security, tenant rights, etc.)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Mental Health</div>
+        <div class="section-theme">Building mental health routines and resilience</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about ongoing therapy/mental health maintenance</li>
+            <li>Look for articles on building resilience, coping strategies</li>
+            <li>Consider resources on mindfulness, meditation, or grounding techniques</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Self Care</div>
+        <div class="section-theme">Creating sustainable, enjoyable self-care systems</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about building personalized self-care routines</li>
+            <li>Look for articles on hobbies, creativity, joy-building</li>
+            <li>Consider resources on self-care that don't cost money</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Career</div>
+        <div class="section-theme">Investing in yourself professionally</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about professional development, certifications, or courses</li>
+            <li>Look for articles on building confidence at work</li>
+            <li>Consider resources on mentorship or networking</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Financial</div>
+        <div class="section-theme">Building financial systems and habits</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about automating finances (automatic savings, transfers)</li>
+            <li>Look for articles on building wealth, investing, retirement planning</li>
+            <li>Consider resources on tracking spending or using money tools</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Spotlight</div>
+        <div class="section-theme">Highlight a woman or resource embodying self-care + resilience</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find a woman creator/expert sharing about self-care, wellness, or resilience</li>
+            <li>OR a tool/community that supports women in building sustainable habits</li>
+            <li>Should feel accessible and inspiring</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MONTH 3: FINANCES -->
+    <div class="month-section" id="finances">
+      <div class="month-header">Month 3: Finances</div>
+      <p class="month-goal">Help newly single women take control of their financial futures</p>
+      
+      <div class="section-card">
+        <div class="section-name">Legal</div>
+        <div class="section-theme">Legal implications of financial independence</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about financial contracts, signing documents safely</li>
+            <li>Look for articles on protecting assets, inheritance, legal agreements</li>
+            <li>Consider resources on financial abuse awareness/protection</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Mental Health</div>
+        <div class="section-theme">Mental health + money (money anxiety, scarcity mindset, worth)</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about money anxiety, shame, or stress</li>
+            <li>Look for articles on mindset shifts around money</li>
+            <li>Consider resources on self-worth and financial confidence</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Self Care</div>
+        <div class="section-theme">Self-care as a financial investment</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about budgeting for self-care/wellness</li>
+            <li>Look for articles on preventing burnout through self-investment</li>
+            <li>Consider resources on treating yourself without overspending</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Career</div>
+        <div class="section-theme">Earning more, negotiating, and career growth</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about salary negotiation, asking for raises</li>
+            <li>Look for articles on side hustles, freelancing, or earning extra income</li>
+            <li>Consider resources on career advancement and earning potential</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Financial</div>
+        <div class="section-theme">Building wealth, investing, and long-term financial security</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find resources about investing basics (stocks, index funds, retirement accounts)</li>
+            <li>Look for articles on financial independence, FIRE (Financial Independence, Retire Early)</li>
+            <li>Consider resources on building long-term wealth as a single woman</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="section-name">Spotlight</div>
+        <div class="section-theme">Highlight a woman or resource leading in financial independence</div>
+        
+        <div class="cue-group">
+          <div class="cue-label">Guidance Cues</div>
+          <ul class="cue-list">
+            <li>Find a woman creator/expert teaching about money, investing, or financial independence</li>
+            <li>OR a tool/app/community building women's financial power</li>
+            <li>Should feel empowering and actionable</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TIPS SECTION -->
+    <div class="tips-section">
+      <div class="tips-title">Curation Tips</div>
+      
+      <div class="tip">
+        <div class="tip-title">Authenticity First</div>
+        <div class="tip-text">Only include resources you've actually used or deeply vetted. Your credibility depends on quality recommendations. Better to have 2 great resources than 3 mediocre ones.</div>
+      </div>
+      
+      <div class="tip">
+        <div class="tip-title">Diversity of Sources</div>
+        <div class="tip-text">Mix different types (articles, apps, books, communities, experts). Include voices from different backgrounds if possible. Avoid always linking to mainstream sources.</div>
+      </div>
+      
+      <div class="tip">
+        <div class="tip-title">Accessibility</div>
+        <div class="tip-text">Prioritize free or low-cost resources when possible. Always mention if something costs money upfront. Consider accessibility (transcripts for videos, alt text, etc.).</div>
+      </div>
+      
+      <div class="tip">
+        <div class="tip-title">Currency</div>
+        <div class="tip-text">Check resource dates (avoid outdated advice). Verify links work before publishing. Update old resources if new ones are better.</div>
+      </div>
+      
+      <div class="tip">
+        <div class="tip-title">Blurb Writing</div>
+        <div class="tip-text">Keep to 150 words max. Lead with the benefit to the reader. Be specific about what they'll learn/find. Use conversational tone (not marketing-speak).</div>
+        
+        <div class="example-blurb">
+          "Life insurance, retirement accounts, bank accounts — if you named an ex as beneficiary, it's time to change that. This guide walks you through what documents matter, how to update them, and why it's not morbid to think about this now. 10-minute read that could save you major headaches later."
+        </div>
+      </div>
+      
+      <div class="tip">
+        <div class="tip-title">Personal Touch</div>
+        <div class="tip-text">Add a 1-sentence personal note if you've used it. Share why it matters to you or your audience. This builds trust and differentiates from generic roundups.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Free | Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/svg" href="./images/sbf.svg">
+  <style>
+    /* ── PAGE-SPECIFIC: free.html ── */
+    body { background: #1a0a14; color: white; min-height: 100vh; }
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220,107,173,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175,70,149,0.25) 0%, transparent 50%),
+        #1a0a14;
+    }
+    .orb1 { width: 350px; height: 350px; background: var(--hot-pink); top: -80px; right: -80px; }
+    .orb2 { width: 250px; height: 250px; background: var(--columbia-blue); bottom: -40px; left: -40px; animation-delay: 5s; } 50% { transform: translate(15px,-15px); } }
+    .content { position: relative; z-index: 1; }
+
+    nav {
+      display: flex; justify-content: center; gap: 0.5em;
+      padding: 1.5em 2em; flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav a {
+      font-size: 0.9em; font-weight: 500; letter-spacing: 0.05em;
+      text-decoration: none; color: rgba(255,255,255,0.5);
+      padding: 0.4em 1em; border-radius: 100px;
+      transition: all 0.2s; border: 1px solid transparent;
+    }
+    nav a:hover { color: white; border-color: rgba(220,107,173,0.4); background: rgba(220,107,173,0.1); }
+    nav a.active { color: var(--amaranth-pink); }
+
+    .hero { text-align: center; padding: 4em 2em 3em; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block; font-size: 0.75em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink); border: 1px solid rgba(237,162,192,0.35);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.5em;
+      background: rgba(237,162,192,0.07);
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2em, 6vw, 3.5em); font-weight: 700; line-height: 1.15; margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .divider {
+      width: 50px; height: 2px; margin: 0 auto 1.5em;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+
+    /* Letter */
+    .letter-section {
+      max-width: 720px; margin: 0 auto; padding: 0 2em 3em;
+      animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0;
+    }
+    .letter {
+      background: rgba(117,47,99,0.25);
+      border: 1px solid rgba(220,107,173,0.2);
+      border-radius: 20px; padding: 3em;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      position: relative; overflow: hidden;
+    }
+    .letter::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+    }
+    .letter-heading {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.5em; color: var(--amaranth-pink);
+      text-align: center; margin-bottom: 1.5em;
+    }
+    .letter audio {
+      display: block; width: 100%; margin: 0 auto 2em;
+      border-radius: 8px; opacity: 0.8;
+    }
+    .letter p {
+      font-size: 1em; line-height: 1.9; color: rgba(255,255,255,0.75);
+      margin-bottom: 1.2em; text-align: center;
+    }
+    .letter-sig {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5em; color: var(--columbia-blue);
+      text-align: center; margin-top: 1.5em;
+    }
+
+    /* ── INTAKE FORM ── */
+    /* ── INTAKE FORM ── */
+    .form-section {
+      max-width: 580px; margin: 0 auto; padding: 0 2em 5em;
+      animation: fadeUp 0.8s ease 0.55s forwards; opacity: 0;
+    }
+    .form-container {
+      background: linear-gradient(135deg, rgba(117,47,99,0.3), rgba(220,107,173,0.12));
+      border: 1px solid rgba(220,107,173,0.25);
+      border-radius: 24px; padding: 2.8em 2.5em;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      position: relative; overflow: hidden;
+    }
+    .form-container::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--byzantium), var(--sky-magenta), var(--columbia-blue));
+    }
+    .intake-intro { text-align: center; }
+    .intake-intro-heading {
+      font-family: 'Playfair Display', serif; font-size: 1.65em;
+      color: white; font-weight: 700; margin-bottom: 0.3em; line-height: 1.25;
+    }
+    .intake-intro-heading em { font-style: italic; color: var(--amaranth-pink); }
+    .intake-intro-sub {
+      font-size: 0.95em; color: rgba(255,255,255,0.6);
+      margin-bottom: 1.6em; line-height: 1.6;
+    }
+    .intake-benefits {
+      list-style: none; text-align: left;
+      background: rgba(255,255,255,0.06); border-radius: 16px;
+      padding: 1.4em 1.6em; margin-bottom: 1.8em;
+      border: 1px solid rgba(220,107,173,0.15);
+      display: flex; flex-direction: column; gap: 0.8em;
+    }
+    .intake-benefits li {
+      font-size: 0.92em; color: rgba(255,255,255,0.8);
+      display: flex; align-items: flex-start; gap: 0.7em; line-height: 1.4;
+    }
+    .intake-benefits li .check { color: var(--amaranth-pink); flex-shrink: 0; }
+    .intake-form { display: none; flex-direction: column; gap: 1.2em; }
+    .intake-form.visible {
+      display: flex;
+      animation: slideUp 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .intake-form-close {
+      position: absolute; top: 1.2em; right: 1.2em;
+      background: rgba(220,107,173,0.1); border: none;
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+      font-size: 1.1em; color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; z-index: 20;
+    }
+    .intake-form-close:hover { background: rgba(220,107,173,0.25); color: white; }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); } 40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); } 80% { transform: translateX(5px); }
+    }
+    .intake-field { display: flex; flex-direction: column; gap: 0.35em; }
+    .intake-label { font-size: 0.92em; font-weight: 500; color: rgba(255,255,255,0.85); }
+    .intake-label-sub { font-size: 0.78em; color: var(--amaranth-pink); font-style: italic; opacity: 0.85; }
+    .intake-input {
+      width: 100%; padding: 0.85em 1.2em; border-radius: 100px;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(220,107,173,0.25); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97em;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .intake-input::placeholder { color: rgba(255,255,255,0.3); }
+    .intake-input:focus { border-color: var(--sky-magenta); box-shadow: 0 0 0 3px rgba(220,107,173,0.15); }
+    input[type="date"].intake-input { color-scheme: dark; }
+    input[type="date"].intake-input::-webkit-calendar-picker-indicator {
+      filter: invert(0.7) sepia(1) saturate(2) hue-rotate(280deg); cursor: pointer;
+    }
+    .intake-select {
+      width: 100%; padding: 0.85em 1.2em; border-radius: 100px;
+      background: rgba(255,255,255,0.08); background-color: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(220,107,173,0.25); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97em;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23eda2c0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1.2em center; padding-right: 2.8em;
+    }
+    .intake-select option { background: #3a1a30; color: white; }
+    .intake-select:focus { border-color: var(--sky-magenta); box-shadow: 0 0 0 3px rgba(220,107,173,0.15); }
+    .other-reveal {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease;
+    }
+    .other-reveal.visible { max-height: 80px; opacity: 1; margin-top: 0.5em; }
+    .intake-btn {
+      width: 100%; padding: 0.95em; border-radius: 100px; border: none;
+      background: linear-gradient(135deg, var(--byzantium), var(--fandango), var(--sky-magenta));
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 1em; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(220,107,173,0.3);
+      transition: transform 0.2s, box-shadow 0.2s; margin-top: 0.4em;
+    }
+    .intake-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(220,107,173,0.5); }
+    .intake-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .intake-btn-secondary {
+      background: rgba(220,107,173,0.15); color: rgba(255,255,255,0.7);
+      box-shadow: none;
+    }
+    .intake-btn-secondary:hover { background: rgba(220,107,173,0.25); color: white; box-shadow: 0 4px 12px rgba(220,107,173,0.2); }
+    .intake-confirm { display: none; text-align: center; }
+    .intake-confirm.visible {
+      display: block;
+      animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .confirm-crown { font-size: 3.2em; margin-bottom: 0.3em; }
+    .confirm-title {
+      font-family: 'Playfair Display', serif; font-size: 1.5em;
+      color: white; font-weight: 700; line-height: 1.3; margin-bottom: 0.4em;
+    }
+    .confirm-title em { font-style: italic; color: var(--amaranth-pink); }
+    .confirm-designation {
+      display: inline-block; margin: 0.5em 0 0.8em;
+      background: linear-gradient(135deg, rgba(117,47,99,0.5), rgba(220,107,173,0.3));
+      border: 1px solid rgba(220,107,173,0.4); border-radius: 100px;
+      padding: 0.45em 1.6em; font-size: 0.95em; font-weight: 600;
+      color: var(--columbia-blue); letter-spacing: 0.05em;
+    }
+    .confirm-sub { font-size: 0.9em; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .confirm-sig { font-family: 'Dancing Script', cursive; font-size: 2em; color: var(--columbia-blue); margin-top: 1.2em; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); } 40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); } 80% { transform: translateX(5px); }
+    }
+    @media (max-width: 600px) { .form-container { padding: 2em 1.4em; } }
+
+        /* ── CONTACT DROPDOWN ── */
+    nav { position: relative; z-index: 100; align-items: center; }
+    .nav-contact { position: relative; }
+    .nav-contact-btn {
+      font-size: 0.9em; font-weight: 500; letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.5); padding: 0.4em 1em; border-radius: 100px;
+      transition: all 0.2s; border: 1px solid transparent;
+      cursor: pointer; background: none; font-family: 'DM Sans', sans-serif;
+      display: flex; align-items: center; gap: 0.3em;
+    }
+    .nav-contact-btn:hover, .nav-contact-btn.open {
+      color: white; border-color: rgba(220,107,173,0.4); background: rgba(220,107,173,0.1);
+    }
+    .nav-contact-btn .chevron { font-size: 0.7em; transition: transform 0.2s; display: inline-block; }
+    .nav-contact-btn.open .chevron { transform: rotate(180deg); }
+    .contact-dropdown {
+      position: absolute; top: calc(100% + 0.6em); right: 0;
+      background: rgba(255,245,250,0.97); backdrop-filter: blur(20px);
+      border: 1px solid rgba(220,107,173,0.2); border-radius: 16px; padding: 0.5em;
+      min-width: 200px; box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      opacity: 0; transform: translateY(-8px) scale(0.97); pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease; z-index: 200;
+    }
+    .contact-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 0.7em; padding: 0.75em 1em;
+      border-radius: 10px; cursor: pointer; transition: background 0.15s;
+      color: #752f63; font-size: 0.9em; font-weight: 500;
+    }
+    .dropdown-item:hover { background: rgba(220,107,173,0.12); }
+    .dropdown-item .di-icon { font-size: 1.2em; }
+    .dropdown-item .di-label { line-height: 1.3; }
+    .dropdown-item .di-sub { font-size: 0.75em; color: #af4695; opacity: 0.7; display: block; font-weight: 400; }
+    /* ── MODAL ── */
+    .modal-overlay.open
+    .modal-title em { font-style: italic; color: #af4695; }
+    .optin-btn
+    .optin-btn.selected
+    .thankyou-overlay.open
+    .thankyou-close:hover { transform: translateY(-2px); }
+
+  
+    /* ── TECH MODAL EXTRAS ── */
+    .tech-modal { background: linear-gradient(155deg, #f0f7ff 0%, #e8f0fe 60%, #dce8f8 100%) !important; }
+    .tech-modal
+    .tech-modal .modal-title em { color: #2563eb !important; }
+    .tech-modal
+    .tech-modal
+    .tech-modal .modal-field input,
+    .tech-modal
+    .tech-modal .modal-field input::placeholder,
+    .tech-modal .modal-field textarea::placeholder { color: rgba(26,42,74,0.35) !important; }
+    .tech-modal .modal-field input:focus,
+    .tech-modal .modal-field textarea:focus { border-color: #2563eb !important; box-shadow: 0 0 0 3px rgba(37,99,235,0.1) !important; }
+    .tech-modal
+    .tech-modal
+    .tech-modal
+    .tech-modal
+    .tech-optin-btn {
+      display: inline-flex; align-items: center; gap: 0.5em; padding: 0.65em 1.4em;
+      border-radius: 100px; border: 2px solid rgba(37,99,235,0.3); background: transparent;
+      color: #2563eb; font-family: 'DM Sans', sans-serif;
+      font-size: 0.88em; font-weight: 500; cursor: pointer; transition: all 0.25s;
+    }
+    .tech-optin-btn
+    .tech-optin-btn.selected { background: linear-gradient(135deg, #1e3a8a, #2563eb); border-color: transparent; color: white; }
+    .tech-optin-btn.selected
+    .tech-thankyou { background: linear-gradient(155deg, #f0f7ff, #e8f0fe) !important; }
+    .tech-thankyou
+    .tech-thankyou
+    .tech-thankyou
+    .tech-thankyou
+
+    /* ── SURVEY PILLS ── */
+    .survey-pills {
+      display: flex; gap: 2em; flex-wrap: wrap; justify-content: center;
+      margin-top: 1.8em;
+    }
+    .survey-pill {
+      flex: 1; min-width: 140px; max-width: 170px;
+      padding: 1.5em 1.2em; border-radius: 16px;
+      border: 2px solid rgba(220,107,173,0.25); background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif;
+      cursor: pointer; transition: all 0.25s; position: relative;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8em;
+    }
+    .survey-pill:hover {
+      border-color: rgba(220,107,173,0.5); background: rgba(220,107,173,0.12);
+      color: white;
+    }
+    .survey-pill.selected {
+      background: linear-gradient(135deg, rgba(220,107,173,0.4), rgba(175,70,149,0.3));
+      border-color: var(--amaranth-pink); color: white;
+    }
+    .pill-emoji { font-size: 2.4em; display: block; }
+    .pill-text { font-size: 0.95em; font-weight: 600; letter-spacing: 0.05em; }
+    .pill-hover {
+      position: absolute; bottom: calc(100% + 16px); left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(117,47,99,0.98), rgba(175,70,149,0.95));
+      border: 1.5px solid rgba(220,107,173,0.5);
+      border-radius: 14px; padding: 1.4em 1.8em; font-size: 1.05em;
+      color: white; white-space: normal; pointer-events: none;
+      opacity: 0; transition: opacity 0.25s ease; z-index: 10; min-width: 280px;
+      text-align: center; line-height: 1.6; font-weight: 500;
+    }
+    .survey-pill:hover .pill-hover { opacity: 1; }
+    @media (max-width: 600px) {
+      .survey-pills { flex-direction: column; }
+      .survey-pill { max-width: 100%; }
+      .pill-hover { min-width: 260px; font-size: 0.95em; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="content">
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./single.html">Single</a>
+      <a href="./bougie.html">Bougie</a>
+      <a href="./free.html" class="active">Free</a>
+      <a href="./tech.html">Tech &amp; Coming Soon</a>
+      <a href="./archive.html">The Tea Vault</a>
+    
+      <!-- Contact Dropdown -->
+      <div class="nav-contact">
+        <button class="nav-contact-btn" id="contactBtn" onclick="toggleDropdown()">
+          Contact <span class="chevron">▾</span>
+        </button>
+        <div class="contact-dropdown" id="contactDropdown">
+          <div class="dropdown-item" onclick="openModal('sbf')">
+            <span class="di-icon">🩷</span>
+            <span class="di-label">
+              For the Baddies
+              <span class="di-sub">Spill your tea with us</span>
+            </span>
+          </div>
+          <div class="dropdown-item" onclick="openModal('tech')">
+            <span class="di-icon">⚙️</span>
+            <span class="di-label">
+              I'm a Techie
+              <span class="di-sub">Let's talk shop</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-badge">Liberation & Healing</div>
+      <h1>Ain't No Feeling<br><em>Like Being Free</em></h1>
+      <div class="divider"></div>
+    </div>
+
+    <div class="letter-section">
+      <div class="letter">
+        <h2 class="letter-heading">Dear SBF Baddie,</h2>
+        <audio controls>
+          <source src="sbf.mp3" type="audio/mpeg">
+          Your browser doesn't support audio — but the message still stands. 🩷
+        </audio>
+        <p>If you are going through a journey of heartbreak, rediscovery, and peace: Do not give up!</p>
+        <p>Grief isn't linear. Healing is a lifelong journey. Embrace it, don't avoid it. It's okay to grieve the loss of your companion and the loss of your intended future. But you can design a better one.</p>
+        <p>This can be a beautiful time of opportunity to rediscover who you are without the input of anyone else. Then, when or if you are ready, you can bring your best self into your new relationship and thrive.</p>
+        <p>Being Single, Bougie, and Free is a way of life. You will never regret the results of doing the work. I believe in you.</p>
+        <div class="letter-sig">Love, Katurah</div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-container">
+
+        <!-- INTRO CARD -->
+        <div class="intake-intro" id="intake-intro">
+          <h2 class="intake-intro-heading">Ready to become a<br><em>SBF Baddie?</em></h2>
+          <p class="intake-intro-sub">Sign up for our monthly SBF newsletter featuring curated resources to support you on your journey.</p>
+          <ul class="intake-benefits">
+            <li><span class="check">✓</span> <strong>🥀 Healing:</strong> Legal resources, mental health support, career insights</li>
+            <li><span class="check">✓</span> <strong>🥂 Bougie:</strong> Self-care tips, financial planning, fitness resources</li>
+            <li><span class="check">✓</span> <strong>💞 Free:</strong> Community spotlight, forum access, ways to help others</li>
+          </ul>
+          <button class="intake-btn" onclick="showIntakeForm()">I'm Ready 🩷</button>
+        </div>
+
+        <!-- INTAKE FORM -->
+        <div class="intake-form" id="intake-form">
+          <button class="intake-form-close" onclick="closeIntakeForm()" title="Close form">✕</button>
+          <div class="intake-field">
+            <label class="intake-label">What's your Baddie name? 👑</label>
+            <input class="intake-input" type="text" id="intake-name" placeholder="Your name..." autocomplete="given-name">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">Drop your email —</label>
+            <span class="intake-label-sub">No spam, just love. Promise. 🩷</span>
+            <input class="intake-input" type="email" id="intake-email" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">How old are you?</label>
+            <input class="intake-input" type="number" id="intake-age" placeholder="e.g., 28" min="18">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">What's your zipcode?</label>
+            <input class="intake-input" type="text" id="intake-zipcode" placeholder="e.g., 30303" maxlength="5" inputmode="numeric">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">How did you find your way here?</label>
+            <select class="intake-select" id="intake-referral" onchange="toggleOtherReveal()">
+              <option value="" disabled selected>Choose one...</option>
+              <option value="instagram">Instagram</option>
+              <option value="tiktok">TikTok</option>
+              <option value="friend">A Friend</option>
+              <option value="google">Google Search</option>
+              <option value="podcast">Podcast</option>
+              <option value="youtube">YouTube</option>
+              <option value="other">Other</option>
+            </select>
+            <div class="other-reveal" id="other-reveal">
+              <input class="intake-input" type="text" id="intake-other" placeholder="Tell us how...">
+            </div>
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">Pick the vibe that matches your energy</label>
+            <div class="survey-pills" id="survey-pills">
+              <button class="survey-pill" data-designation="healing" onclick="selectDesignation('healing')">
+                <span class="pill-emoji">🥀</span>
+                <span class="pill-text">Healing</span>
+                <span class="pill-hover">What just happened? Where do I start? I need real support right now</span>
+              </button>
+              <button class="survey-pill" data-designation="bougie" onclick="selectDesignation('bougie')">
+                <span class="pill-emoji">🥂</span>
+                <span class="pill-text">Bougie</span>
+                <span class="pill-hover">Stabilizing. Ready to invest in me and my future</span>
+              </button>
+              <button class="survey-pill" data-designation="free" onclick="selectDesignation('free')">
+                <span class="pill-emoji">💞</span>
+                <span class="pill-text">Free</span>
+                <span class="pill-hover">I'm centered & thriving. Ready to share lessons learned with my sisters</span>
+              </button>
+            </div>
+          </div>
+          <button class="intake-btn" id="intake-submit-btn" onclick="intakeSubmit()">Start My Journey 🩷</button>
+          <button class="intake-btn intake-btn-secondary" onclick="closeIntakeForm()">Never mind</button>
+        </div>
+
+        <!-- CONFIRMATION -->
+        <div class="intake-confirm" id="intake-confirm">
+          <div class="confirm-crown">👑</div>
+          <div class="confirm-title">Welcome <em id="confirm-name">Baddie</em></div>
+          <p class="confirm-sub">Let the Journey Begin</p>
+          <div class="confirm-sig">Love, Katurah</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ LETS TALK TECH MODAL ══ -->
+  <div class="modal-overlay" id="techModal" onclick="handleOverlayClick(event,'techModal')">
+    <div class="modal tech-modal">
+      <button class="modal-close" onclick="closeModal('techModal')">✕</button>
+      <div class="modal-deco">⚙️</div>
+      <h2 class="modal-title"><em>Let's Talk Tech</em></h2>
+      <p class="modal-prompt">Whether you have ideas, want to collaborate, or just want to connect — slide into the stack.</p>
+      <div class="modal-field">
+        <label for="tech-name">Name</label>
+        <input type="text" id="tech-name" placeholder="Your name">
+      </div>
+      <div class="modal-field">
+        <label for="tech-phone">Phone</label>
+        <input type="tel" id="tech-phone" placeholder="(000) 000-0000">
+      </div>
+      <div class="modal-field">
+        <label for="tech-email">Email</label>
+        <input type="email" id="tech-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="tech-company">Company</label>
+        <input type="text" id="tech-company" placeholder="Where do you ship code?">
+      </div>
+      <div class="modal-field">
+        <label>What brings you here?</label>
+        <div class="pill-selector">
+          <button class="pill-select-btn" id="pill-suggestions" onclick="selectPill('suggestions')">💡 Suggestions</button>
+          <button class="pill-select-btn" id="pill-connect" onclick="selectPill('connect')">🤝 Let's Connect</button>
+        </div>
+      </div>
+      <div class="modal-field">
+        <label for="tech-message">Message</label>
+        <textarea id="tech-message" placeholder="What's on your mind?" maxlength="500" oninput="updateCharCount(this,'tech-count')"></textarea>
+        <div class="char-count" id="tech-count">0 / 500</div>
+      </div>
+      <div class="optin-wrap">
+        <button class="tech-optin-btn" id="techOptinBtn" onclick="toggleTechOptin()">
+          <span class="optin-check" id="techOptinCheck"></span>
+          Alert me for the next release
+        </button>
+      </div>
+      <button class="modal-submit" onclick="submitTech()">Send It ⚙️</button>
+    </div>
+  </div>
+  <!-- ══ TECH THANK YOU ══ -->
+  <div class="thankyou-overlay" id="techThankyouOverlay" onclick="closeTechThankyou()">
+    <div class="thankyou-card tech-thankyou" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">⚙️</div>
+      <div class="thankyou-title">Message received.</div>
+      <div class="thankyou-sub">Escalating to management.</div>
+      <div class="thankyou-sig">— Katurah</div>
+      <button class="thankyou-close" onclick="closeTechThankyou()">Close</button>
+    </div>
+  </div>
+
+  <!-- ══ SPILL THE TEA MODAL ══ -->
+  <div class="modal-overlay" id="sbfModal" onclick="handleOverlayClick(event,'sbfModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('sbfModal')">✕</button>
+      <div class="modal-deco">🫖</div>
+      <h2 class="modal-title"><em>Spill the Tea</em></h2>
+      <p class="modal-prompt">What features would you like to see? Is there a resource or website that can help others? Drop the link here. Or just tell me what you think? All tea is accepted!</p>
+      <div class="modal-field">
+        <label for="sbf-name">Your Name</label>
+        <input type="text" id="sbf-name" placeholder="What do they call you, Baddie?">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-email">Email</label>
+        <input type="email" id="sbf-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-tea">The Tea ☕</label>
+        <textarea id="sbf-tea" placeholder="Pour it all out..." maxlength="500" oninput="updateCharCount(this,'sbf-count')"></textarea>
+        <div class="char-count" id="sbf-count">0 / 500</div>
+      </div>
+      <div class="optin-wrap">
+        <button class="optin-btn" id="optinBtn" onclick="toggleOptin()">
+          <span class="optin-check" id="optinCheck"></span>
+          Keep me in the tea with updates
+        </button>
+      </div>
+      <button class="modal-submit" onclick="submitSBF()">Send It 🩷</button>
+    </div>
+  </div>
+  <!-- ══ THANK YOU POP-UP ══ -->
+  <div class="thankyou-overlay" id="thankyouOverlay" onclick="closeThankyou()">
+    <div class="thankyou-card" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">🩷</div>
+      <div class="thankyou-title">Thanks Baddie!</div>
+      <div class="thankyou-sub">The tea has been received.<br>We see you and we appreciate you.</div>
+      <div class="thankyou-sig">Love, Katurah</div>
+      <button class="thankyou-close" onclick="closeThankyou()">Close</button>
+    </div>
+  </div>
+  <script>
+    /* ── INTAKE FORM LOGIC ── */
+    let intakeData = {};
+
+    function showIntakeForm() {
+      const intro = document.getElementById('intake-intro');
+      const form  = document.getElementById('intake-form');
+      intro.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      intro.style.opacity = '0';
+      intro.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        intro.style.display = 'none';
+        form.classList.add('visible');
+        document.getElementById('intake-name').focus();
+      }, 300);
+    }
+
+    function toggleOtherReveal() {
+      const val = document.getElementById('intake-referral').value;
+      document.getElementById('other-reveal').classList.toggle('visible', val === 'other');
+    }
+
+    function shakeField(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.borderColor = 'var(--hot-pink)';
+      el.style.animation = 'shake 0.4s ease';
+      setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 500);
+    }
+
+    let selectedDesignation = null;
+
+    function selectDesignation(designation) {
+      selectedDesignation = designation;
+      document.querySelectorAll('.survey-pill').forEach(pill => {
+        pill.classList.toggle('selected', pill.dataset.designation === designation);
+      });
+    }
+
+    function closeIntakeForm() {
+      document.getElementById('intake-form').classList.remove('visible');
+      // Reset form
+      document.getElementById('intake-name').value = '';
+      document.getElementById('intake-email').value = '';
+      document.getElementById('intake-age').value = '';
+      document.getElementById('intake-zipcode').value = '';
+      document.getElementById('intake-referral').value = '';
+      document.getElementById('intake-other').value = '';
+      selectedDesignation = null;
+      document.querySelectorAll('.survey-pill').forEach(pill => pill.classList.remove('selected'));
+      // Show intro with fade in
+      const intro = document.getElementById('intake-intro');
+      intro.style.display = 'block';
+      intro.style.opacity = '1';
+      intro.style.transform = 'translateY(0)';
+    }
+
+    async function intakeSubmit() {
+      const name      = document.getElementById('intake-name').value.trim();
+      const email     = document.getElementById('intake-email').value.trim();
+      const age       = document.getElementById('intake-age').value;
+      const zipcode   = document.getElementById('intake-zipcode').value.trim();
+      const referral  = document.getElementById('intake-referral').value;
+      const designation = selectedDesignation;
+
+      if (!name)                          { shakeField('intake-name');      return; }
+      if (!email || !email.includes('@')) { shakeField('intake-email');     return; }
+      if (!age || age < 18)               { shakeField('intake-age');       return; }
+      if (!zipcode || zipcode.length !== 5 || isNaN(zipcode)) { shakeField('intake-zipcode'); return; }
+      if (!referral)                      { shakeField('intake-referral');  return; }
+      if (!designation)                   { alert('Pick your vibe, Baddie! 🩷'); return; }
+
+      intakeData = {
+        formType: 'sbf-intake', 
+        name, 
+        email,
+        age: parseInt(age),
+        zipcode,
+        referral,
+        referralOther: referral === 'other' ? document.getElementById('intake-other').value.trim() : '',
+        designation,
+        submittedAt: new Date().toISOString()
+      };
+
+      const btn = document.getElementById('intake-submit-btn');
+      btn.disabled = true; btn.textContent = 'Almost there...';
+
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/intake', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(intakeData)
+        });
+        if (!res.ok) throw new Error('Server error');
+        showIntakeConfirm();
+      } catch (err) {
+        alert('Something went wrong — please try again. 🩷');
+        btn.disabled = false; btn.textContent = 'Start My Journey 🩷';
+      }
+    }
+
+    function showIntakeConfirm() {
+      document.getElementById('intake-form').classList.remove('visible');
+      document.getElementById('confirm-name').textContent = intakeData.name;
+      document.getElementById('intake-confirm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('intake-confirm').classList.add('visible');
+    }
+
+    function toggleDropdown() {
+      document.getElementById('contactBtn').classList.toggle('open');
+      document.getElementById('contactDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const wrap = document.querySelector('.nav-contact');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+    function openModal(type) {
+      document.getElementById('contactBtn').classList.remove('open');
+      document.getElementById('contactDropdown').classList.remove('open');
+      if (type === 'sbf') { document.getElementById('sbfModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+      if (type === 'tech') { document.getElementById('techModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+    function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+    function updateCharCount(el, countId) {
+      const count = el.value.length;
+      const countEl = document.getElementById(countId);
+      countEl.textContent = count + ' / 500';
+      countEl.classList.toggle('warn', count > 450);
+    }
+    let optedIn = false;
+    function toggleOptin() {
+      optedIn = !optedIn;
+      document.getElementById('optinBtn').classList.toggle('selected', optedIn);
+      document.getElementById('optinCheck').textContent = optedIn ? '✓' : '';
+    }
+    async function submitSBF() {
+      const name = document.getElementById('sbf-name').value.trim();
+      const email = document.getElementById('sbf-email').value.trim();
+      const tea = document.getElementById('sbf-tea').value.trim();
+      if (!name || !email) { alert('Hey Baddie — we need your name and email! 🩷'); return; }
+      const payload = { formType: 'spill-the-tea', name, email, message: tea, optIn: optedIn, submittedAt: new Date().toISOString() };
+      const btn = document.querySelector('#sbfModal .modal-submit');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('sbfModal');
+        document.getElementById('thankyouOverlay').classList.add('open');
+        document.getElementById('sbf-name').value = '';
+        document.getElementById('sbf-email').value = '';
+        document.getElementById('sbf-tea').value = '';
+        document.getElementById('sbf-count').textContent = '0 / 500';
+        optedIn = false;
+        document.getElementById('optinBtn').classList.remove('selected');
+        document.getElementById('optinCheck').textContent = '';
+      } catch (err) {
+        alert('Something went wrong — please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send It 🩷';
+      }
+    }
+    function closeThankyou() { document.getElementById('thankyouOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('sbfModal'); closeModal('techModal'); closeThankyou(); closeTechThankyou();
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+
+    let selectedPill = null;
+    function selectPill(type) {
+      selectedPill = type;
+      document.getElementById('pill-suggestions').classList.toggle('selected', type === 'suggestions');
+      document.getElementById('pill-connect').classList.toggle('selected', type === 'connect');
+    }
+    let techOptedIn = false;
+    function toggleTechOptin() {
+      techOptedIn = !techOptedIn;
+      document.getElementById('techOptinBtn').classList.toggle('selected', techOptedIn);
+      document.getElementById('techOptinCheck').textContent = techOptedIn ? '✓' : '';
+    }
+    async function submitTech() {
+      const name  = document.getElementById('tech-name').value.trim();
+      const email = document.getElementById('tech-email').value.trim();
+      if (!name || !email) { alert('We need your name and email to connect! ⚙️'); return; }
+      if (!selectedPill) { alert('Please select Suggestions or Let\'s Connect! ⚙️'); return; }
+      const payload = {
+        formType: 'lets-talk-tech', name,
+        phone: document.getElementById('tech-phone').value.trim(),
+        email,
+        company: document.getElementById('tech-company').value.trim(),
+        intent: selectedPill,
+        message: document.getElementById('tech-message').value.trim(),
+        optIn: techOptedIn,
+        submittedAt: new Date().toISOString()
+      };
+      const btn = document.querySelector('#techModal .modal-submit');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('techModal');
+        document.getElementById('techThankyouOverlay').classList.add('open');
+        ['tech-name','tech-phone','tech-email','tech-company','tech-message'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('tech-count').textContent = '0 / 500';
+        selectedPill = null;
+        document.getElementById('pill-suggestions').classList.remove('selected');
+        document.getElementById('pill-connect').classList.remove('selected');
+        techOptedIn = false;
+        document.getElementById('techOptinBtn').classList.remove('selected');
+        document.getElementById('techOptinCheck').textContent = '';
+      } catch (err) {
+        alert('Something went wrong — please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send It ⚙️';
+      }
+    }
+    function closeTechThankyou() {
+      document.getElementById('techThankyouOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>

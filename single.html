@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Single | Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/svg" href="./images/sbf.svg">
+  <style>
+    /* ── PAGE-SPECIFIC: single.html ── */
+    body { background: #1a0a14; color: white; min-height: 100vh; }
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220,107,173,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175,70,149,0.25) 0%, transparent 50%),
+        #1a0a14;
+    }
+    .orb1 { width: 350px; height: 350px; background: var(--hot-pink); top: -80px; right: -80px; }
+    .orb2 { width: 250px; height: 250px; background: var(--columbia-blue); bottom: -40px; left: -40px; animation-delay: 5s; } 50% { transform: translate(15px,-15px); }
+    }
+    .content { position: relative; z-index: 1; }
+
+    nav {
+      display: flex; justify-content: center; gap: 0.5em;
+      padding: 1.5em 2em; flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav a {
+      font-size: 0.9em; font-weight: 500; letter-spacing: 0.05em;
+      text-decoration: none; color: rgba(255,255,255,0.5);
+      padding: 0.4em 1em; border-radius: 100px;
+      transition: all 0.2s; border: 1px solid transparent;
+    }
+    nav a:hover { color: white; border-color: rgba(220,107,173,0.4); background: rgba(220,107,173,0.1); }
+    nav a.active { color: var(--amaranth-pink); }
+
+    .hero { text-align: center; padding: 4em 2em 2em; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block; font-size: 0.75em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink); border: 1px solid rgba(237,162,192,0.35);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.5em;
+      background: rgba(237,162,192,0.07);
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2em, 6vw, 3.5em); font-weight: 700;
+      line-height: 1.15; margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .divider {
+      width: 50px; height: 2px; margin: 0 auto 2em;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+
+    /* Image */
+    .photo-section {
+      max-width: 700px; margin: 0 auto; padding: 0 2em 2em;
+      animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0;
+    }
+    figure { text-align: center; }
+    .single-pic {
+      display: block; max-width: 100%; height: auto; margin: 0 auto;
+      border-radius: 16px;
+      border: 3px solid rgba(220,107,173,0.4);
+      box-shadow: 0 8px 40px rgba(220,107,173,0.2);
+    }
+    figcaption {
+      display: inline-block; margin-top: 0.8em;
+      background: rgba(220,107,173,0.15); color: var(--amaranth-pink);
+      font-style: italic; font-size: 0.85em;
+      padding: 0.4em 1em; border-radius: 100px;
+      border: 1px solid rgba(220,107,173,0.3);
+    }
+
+    /* Content */
+    .body-content {
+      max-width: 700px; margin: 0 auto; padding: 2em 2em 4em;
+      animation: fadeUp 0.8s ease 0.5s forwards; opacity: 0;
+    }
+    .body-content p {
+      font-size: 1em; line-height: 1.8; color: rgba(255,255,255,0.7);
+      margin-bottom: 1.5em; text-align: center;
+    }
+
+    .single-list {
+      list-style: none; max-width: 500px; margin: 0 auto 2em;
+    }
+    .single-list li {
+      display: flex; align-items: flex-start; gap: 0.8em;
+      font-size: 0.95em; line-height: 1.6; color: rgba(255,255,255,0.7);
+      padding: 0.8em 1em; margin-bottom: 0.5em;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+    }
+    .single-list li::before {
+      content: '◆'; color: var(--sky-magenta);
+      font-size: 0.6em; margin-top: 0.4em; flex-shrink: 0;
+    }
+
+    .cta-link {
+      display: block; text-align: center; margin-top: 2em;
+    }
+    .cta-link a {
+      display: inline-flex; align-items: center; gap: 0.5em;
+      background: linear-gradient(135deg, var(--sky-magenta), var(--hot-pink));
+      color: white; font-weight: 500; font-size: 1em;
+      padding: 0.85em 2em; border-radius: 100px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(220,107,173,0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .cta-link a:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(220,107,173,0.5); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  
+    /* ── CONTACT DROPDOWN ── */
+    nav { position: relative; z-index: 100; align-items: center; }
+    .nav-contact { position: relative; }
+    .nav-contact-btn {
+      font-size: 0.9em; font-weight: 500; letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.5); padding: 0.4em 1em; border-radius: 100px;
+      transition: all 0.2s; border: 1px solid transparent;
+      cursor: pointer; background: none; font-family: 'DM Sans', sans-serif;
+      display: flex; align-items: center; gap: 0.3em;
+    }
+    .nav-contact-btn:hover, .nav-contact-btn.open {
+      color: white; border-color: rgba(220,107,173,0.4); background: rgba(220,107,173,0.1);
+    }
+    .nav-contact-btn .chevron { font-size: 0.7em; transition: transform 0.2s; display: inline-block; }
+    .nav-contact-btn.open .chevron { transform: rotate(180deg); }
+    .contact-dropdown {
+      position: absolute; top: calc(100% + 0.6em); right: 0;
+      background: rgba(255,245,250,0.97); backdrop-filter: blur(20px);
+      border: 1px solid rgba(220,107,173,0.2); border-radius: 16px; padding: 0.5em;
+      min-width: 200px; box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      opacity: 0; transform: translateY(-8px) scale(0.97); pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease; z-index: 200;
+    }
+    .contact-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 0.7em; padding: 0.75em 1em;
+      border-radius: 10px; cursor: pointer; transition: background 0.15s;
+      color: #752f63; font-size: 0.9em; font-weight: 500;
+    }
+    .dropdown-item:hover { background: rgba(220,107,173,0.12); }
+    .dropdown-item .di-icon { font-size: 1.2em; }
+    .dropdown-item .di-label { line-height: 1.3; }
+    .dropdown-item .di-sub { font-size: 0.75em; color: #af4695; opacity: 0.7; display: block; font-weight: 400; }
+    /* ── MODAL ── */
+    .modal-overlay.open
+    .modal-title em { font-style: italic; color: #af4695; }
+    .optin-btn
+    .optin-btn.selected
+    .thankyou-overlay.open
+    .thankyou-close:hover { transform: translateY(-2px); }
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="content">
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./single.html" class="active">Single</a>
+      <a href="./bougie.html">Bougie</a>
+      <a href="./free.html">Free</a>
+      <a href="./tech.html">Tech &amp; Coming Soon</a>
+      <a href="./archive.html">The Tea Vault</a>
+    
+      <!-- Contact Dropdown -->
+      <div class="nav-contact">
+        <button class="nav-contact-btn" id="contactBtn" onclick="toggleDropdown()">
+          Contact <span class="chevron">▾</span>
+        </button>
+        <div class="contact-dropdown" id="contactDropdown">
+          <div class="dropdown-item" onclick="openModal('sbf')">
+            <span class="di-icon">🩷</span>
+            <span class="di-label">
+              For the Baddies
+              <span class="di-sub">Spill your tea with us</span>
+            </span>
+          </div>
+          <div class="dropdown-item" onclick="openModal('tech')">
+            <span class="di-icon">⚙️</span>
+            <span class="di-label">
+              I'm a Techie
+              <span class="di-sub">Let's talk shop</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-badge">Single on Purpose</div>
+      <h1>Single for a Season,<br><em>Single by Choice</em></h1>
+      <div class="divider"></div>
+    </div>
+
+    <div class="photo-section">
+      <figure>
+        <img src="./images/funny-gals.jpg" alt="Picture of The Givens Gals laughing" class="single-pic">
+        <figcaption>Can you tell which sister is single?</figcaption>
+      </figure>
+    </div>
+
+    <div class="body-content">
+      <p>Let's talk about how much fun it is to be single on purpose or for just a season. This picture is to remind us all that joy doesn't depend upon a relationship status, but upon inner peace with yourself and cultivating your relationship with others.</p>
+      <p>In case you were wondering:</p>
+      <ul class="single-list">
+        <li>Happily married 20 years</li>
+        <li>Divorced 6 years and in a new relationship</li>
+        <li>Divorced 8 months and graduating college later this year </li>
+      </ul>
+      <p>Here is a great article listing a few reasons why many women enjoy being single.</p>
+      <div class="cta-link">
+        <a href="https://vivienroggero.com/blog/love-being-single" target="_blank">
+          "12 Reasons Being Single is a Whole Vibe" →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SPILL THE TEA MODAL ══ -->
+  <div class="modal-overlay" id="sbfModal" onclick="handleOverlayClick(event,'sbfModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('sbfModal')">✕</button>
+      <div class="modal-deco">🫖</div>
+      <h2 class="modal-title"><em>Spill the Tea</em></h2>
+      <p class="modal-prompt">What features would you like to see? Is there a resource or website that can help others? Drop the link here. Or just tell me what you think? All tea is accepted!</p>
+      <div class="modal-field">
+        <label for="sbf-name">Your Name</label>
+        <input type="text" id="sbf-name" placeholder="What do they call you, Baddie?">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-email">Email</label>
+        <input type="email" id="sbf-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-tea">The Tea ☕</label>
+        <textarea id="sbf-tea" placeholder="Pour it all out..." maxlength="500" oninput="updateCharCount(this,'sbf-count')"></textarea>
+        <div class="char-count" id="sbf-count">0 / 500</div>
+      </div>
+      <div class="optin-wrap">
+        <button class="optin-btn" id="optinBtn" onclick="toggleOptin()">
+          <span class="optin-check" id="optinCheck"></span>
+          Keep me in the tea with updates
+        </button>
+      </div>
+      <button class="modal-submit" onclick="submitSBF()">Send It 🩷</button>
+    </div>
+  </div>
+  <!-- ══ THANK YOU POP-UP ══ -->
+  <div class="thankyou-overlay" id="thankyouOverlay" onclick="closeThankyou()">
+    <div class="thankyou-card" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">🩷</div>
+      <div class="thankyou-title">Thanks Baddie!</div>
+      <div class="thankyou-sub">The tea has been received.<br>We see you and we appreciate you.</div>
+      <div class="thankyou-sig">Love, Katurah</div>
+      <button class="thankyou-close" onclick="closeThankyou()">Close</button>
+    </div>
+  </div>
+  <script>
+    function toggleDropdown() {
+      document.getElementById('contactBtn').classList.toggle('open');
+      document.getElementById('contactDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const wrap = document.querySelector('.nav-contact');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+    function openModal(type) {
+      document.getElementById('contactBtn').classList.remove('open');
+      document.getElementById('contactDropdown').classList.remove('open');
+      if (type === 'sbf') { document.getElementById('sbfModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+    function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+    function updateCharCount(el, countId) {
+      const count = el.value.length;
+      const countEl = document.getElementById(countId);
+      countEl.textContent = count + ' / 500';
+      countEl.classList.toggle('warn', count > 450);
+    }
+    let optedIn = false;
+    function toggleOptin() {
+      optedIn = !optedIn;
+      document.getElementById('optinBtn').classList.toggle('selected', optedIn);
+      document.getElementById('optinCheck').textContent = optedIn ? '✓' : '';
+    }
+    async function submitSBF() {
+      const name = document.getElementById('sbf-name').value.trim();
+      const email = document.getElementById('sbf-email').value.trim();
+      const tea = document.getElementById('sbf-tea').value.trim();
+      if (!name || !email) { alert('Hey Baddie — we need your name and email! 🩷'); return; }
+      const payload = { formType: 'spill-the-tea', name, email, message: tea, optIn: optedIn, submittedAt: new Date().toISOString() };
+      const btn = document.querySelector('#sbfModal .modal-submit');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('sbfModal');
+        document.getElementById('thankyouOverlay').classList.add('open');
+        document.getElementById('sbf-name').value = '';
+        document.getElementById('sbf-email').value = '';
+        document.getElementById('sbf-tea').value = '';
+        document.getElementById('sbf-count').textContent = '0 / 500';
+        optedIn = false;
+        document.getElementById('optinBtn').classList.remove('selected');
+        document.getElementById('optinCheck').textContent = '';
+      } catch (err) {
+        alert('Something went wrong — please try again.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send It 🩷';
+      }
+    }
+    function closeThankyou() { document.getElementById('thankyouOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('sbfModal'); closeThankyou();
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A wellness community for women learning to heal, pour into themselves, and thrive.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg" href="./images/sbf.svg">
+  <style>
+    :root {
+      --columbia-blue: #c7e8f3;
+      --wisteria: #bf9aca;
+      --quinacridone-magenta: #8e4162;
+      --jet: #41393e;
+      --amaranth-pink: #eda2c0;
+      --sky-magenta: #DC6BAD;
+      --hot-pink: #fc6dab;
+      --fandango: #af4695;
+      --byzantium: #752f63;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #1a0a14;
+      color: white;
+      min-height: 100vh;
+    }
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220, 107, 173, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175, 70, 149, 0.3) 0%, transparent 50%),
+        #1a0a14;
+    }
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(70px);
+      opacity: 0.12; pointer-events: none; z-index: 0;
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb1 { width: 400px; height: 400px; background: var(--hot-pink); top: -100px; right: -100px; }
+    .orb2 { width: 300px; height: 300px; background: var(--columbia-blue); bottom: -50px; left: -50px; animation-delay: 4s; }
+    @keyframes float {
+      0%, 100% { transform: translate(0,0); }
+      50% { transform: translate(15px, -15px); }
+    }
+    .content { position: relative; z-index: 1; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0.5em; padding: 1.5em 2em; flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav a {
+      font-size: 0.9em; font-weight: 500; letter-spacing: 0.05em;
+      text-decoration: none; color: rgba(255,255,255,0.5);
+      padding: 0.4em 1em; border-radius: 100px;
+      transition: all 0.2s; border: 1px solid transparent;
+    }
+    nav a:hover {
+      color: white; border-color: rgba(220,107,173,0.4);
+      background: rgba(220,107,173,0.1);
+    }
+    nav a.active { color: var(--amaranth-pink); }
+
+    /* HERO */
+    .hero {
+      text-align: center; padding: 5em 2em 4em;
+      max-width: 800px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block; font-size: 0.75em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink); border: 1px solid rgba(237,162,192,0.35);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.5em;
+      background: rgba(237,162,192,0.07);
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5em, 7vw, 4.5em);
+      font-weight: 700; line-height: 1.1; margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .hero-sub {
+      font-size: 1.1em; line-height: 1.8;
+      color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 2.5em;
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+    .hero-divider {
+      width: 50px; height: 2px; margin: 0 auto 2.5em;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0;
+    }
+
+    /* SECTION CARDS */
+    .sections {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em; max-width: 1000px; margin: 0 auto;
+      padding: 0 2em 4em; animation: fadeUp 0.8s ease 0.5s forwards; opacity: 0;
+    }
+    .section-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 2em;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+      text-decoration: none; color: white; display: block;
+    }
+    .section-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .section-card:hover { transform: translateY(-4px); border-color: rgba(220,107,173,0.3); }
+    .section-card:hover::before { opacity: 1; }
+    .card-emoji { font-size: 2em; margin-bottom: 0.6em; display: block; }
+    .section-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5em;
+      margin-bottom: 0.5em; color: white;
+    }
+    .section-card p { font-size: 0.9em; line-height: 1.7; color: rgba(255,255,255,0.55); }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4em;
+      margin-top: 1.2em; font-size: 0.85em; font-weight: 500;
+      color: var(--sky-magenta); transition: gap 0.2s;
+    }
+    .section-card:hover .card-link { gap: 0.7em; }
+
+    /* READY BANNER */
+    .ready-banner {
+      max-width: 700px; margin: 0 auto 5em; padding: 0 2em;
+      animation: fadeUp 0.8s ease 0.65s forwards; opacity: 0;
+    }
+    .ready {
+      background: linear-gradient(135deg, var(--sky-magenta), var(--hot-pink));
+      border-radius: 16px; padding: 1.5em 2em; text-align: center;
+      box-shadow: 0 8px 30px rgba(220,107,173,0.3);
+    }
+    .ready p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.4em; line-height: 1.5; color: white;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="content">
+    <nav>
+      <a href="./index.html" class="active">Home</a>
+      <a href="./single.html">Single</a>
+      <a href="./bougie.html">Bougie</a>
+      <a href="./free.html">Free</a>
+      <a href="./tech.html">What's Coming</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-badge">Welcome to the Community</div>
+      <h1>Single. <em>Bougie.</em> Free.</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">A safe space of sisterhood where we learn to love ourselves first. Whether you're in a single season or choosing it on purpose — this is your community.</p>
+    </section>
+
+    <div class="sections">
+      <a href="./single.html" class="section-card">
+        <span class="card-emoji">💍</span>
+        <h2>Single</h2>
+        <p>Are you newly single and looking for ways to cope? Or been single for a while and need a pick-me-up? This is for you.</p>
+        <span class="card-link">Explore →</span>
+      </a>
+      <a href="./bougie.html" class="section-card">
+        <span class="card-emoji">✨</span>
+        <h2>Bougie</h2>
+        <p>Bougie is a mindset. It's living with the confidence to make yourself the luxury — luxurious self love, not luxury things.</p>
+        <span class="card-link">Get bougie →</span>
+      </a>
+      <a href="./free.html" class="section-card">
+        <span class="card-emoji">🕊️</span>
+        <h2>Free</h2>
+        <p>Freedom from negative self-talk and the defeating mindset. Let's free our minds and learn who we are and what we can become.</p>
+        <span class="card-link">Find freedom →</span>
+      </a>
+      <a href="./tech.html" class="section-card">
+        <span class="card-emoji">👑</span>
+        <h2>What's Coming</h2>
+        <p>A peek inside the platform being built to meet you exactly where you are — every stage, every mood, every breakthrough.</p>
+        <span class="card-link">See the roadmap →</span>
+      </a>
+    </div>
+
+    <div class="ready-banner">
+      <div class="ready">
+        <p>Are you ready to be a SBF Baddie?<br>Let's do it together! 🩷</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

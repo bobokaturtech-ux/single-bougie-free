@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Tea Vault | Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/svg" href="./images/sbf.svg">
+  <style>
+    /* ── PAGE-SPECIFIC: archive.html ── */
+    body { background: #1a0a14; color: white; min-height: 100vh; }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(220, 107, 173, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(175, 70, 149, 0.25) 0%, transparent 50%),
+        #1a0a14;
+    }
+
+    .orb1 {
+      width: 350px;
+      height: 350px;
+      background: var(--hot-pink);
+      top: -80px;
+      right: -80px;
+    }
+
+    .orb2 {
+      width: 250px;
+      height: 250px;
+      background: var(--columbia-blue);
+      bottom: -40px;
+      left: -40px;
+      animation-delay: 5s;
+    }
+      50% { transform: translate(15px, -15px); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+      padding: 1.5em 2em;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    nav a {
+      font-size: 0.9em;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.4em 1em;
+      border-radius: 100px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      color: white;
+      border-color: rgba(220, 107, 173, 0.4);
+      background: rgba(220, 107, 173, 0.1);
+    }
+
+    nav a.active {
+      color: var(--amaranth-pink);
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: 700;
+      text-align: center;
+      margin: 2em 0 0.5em 0;
+      background: linear-gradient(135deg, var(--hot-pink), var(--sky-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .archive-container {
+      max-width: 1200px;
+      margin: 3em auto;
+      padding: 0 2em;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4em 2em;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.3em;
+    }
+
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2em;
+      margin-top: 2em;
+    }
+
+    @media (max-width: 768px) {
+      .newsletter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .newsletter-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(220, 107, 173, 0.3);
+      border-radius: 16px;
+      padding: 2em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .newsletter-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(220, 107, 173, 0.6);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(220, 107, 173, 0.2);
+    }
+
+    .card-month {
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sky-magenta);
+      margin-bottom: 0.5em;
+    }
+
+    .card-newsletter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4em;
+      font-weight: 700;
+      color: white;
+      line-height: 1.3;
+      margin-bottom: 0.4em;
+    }
+
+    .card-theme {
+      font-size: 0.88em;
+      color: var(--amaranth-pink);
+      font-style: italic;
+      margin-bottom: 1.4em;
+      line-height: 1.4;
+    }
+
+    .read-issue-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--byzantium), var(--fandango));
+      color: white;
+      border: none;
+      padding: 0.6em 1.4em;
+      border-radius: 100px;
+      font-size: 0.82em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .read-issue-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(175, 70, 149, 0.4);
+    }
+
+    /* Skeleton Loaders */
+    .skeleton {
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      50% {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      100% {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .skeleton-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(220, 107, 173, 0.3);
+      border-radius: 16px;
+      padding: 2em;
+      backdrop-filter: blur(10px);
+    }
+
+    .skeleton-month {
+      height: 2em;
+      width: 60%;
+      margin-bottom: 1em;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      animation: shimmer 2s infinite;
+    }
+
+    .skeleton-title {
+      height: 1em;
+      margin-bottom: 0.8em;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      animation: shimmer 2s infinite;
+    }
+
+    .loading-spinner {
+      text-align: center;
+      padding: 2em;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <div class="content">
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./tech.html">Tech</a>
+      <a href="./free.html">Free</a>
+      <a href="./single.html">Single</a>
+      <a href="./bougie.html">Bougie</a>
+      <a href="./archive.html" class="active">The Tea Vault</a>
+    </nav>
+
+    <div class="archive-container">
+      <h1>The Tea Vault</h1>
+
+      <div id="loading" class="loading-spinner">
+        Loading the vault...
+      </div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        Making the tea, ready to spill it soon...
+      </div>
+
+      <div id="newsletter-grid" class="newsletter-grid"></div>
+    </div>
+  </div>
+
+
+
+  <script>
+    // ── CONFIG ──────────────────────────────────────────────
+    const ARCHIVE_API = 'https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/archive';
+    const CLOUDFRONT_URL = 'https://d2jwsb8ftyfbhv.cloudfront.net';
+
+    let newsletters = [];
+
+    // ── FETCH ────────────────────────────────────────────────
+    async function fetchNewsletters() {
+      renderSkeletons();
+
+      try {
+        const response = await fetch(ARCHIVE_API);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const json = await response.json();
+        newsletters = json.data || [];
+
+        renderNewsletters();
+      } catch (error) {
+        console.error('Error fetching archive:', error);
+        showEmptyState();
+      }
+    }
+
+    // ── RENDER CARDS ─────────────────────────────────────────
+    function renderNewsletters() {
+      const grid = document.getElementById('newsletter-grid');
+      const loading = document.getElementById('loading');
+      const emptyState = document.getElementById('empty-state');
+
+      loading.style.display = 'none';
+
+      if (newsletters.length === 0) {
+        showEmptyState();
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      grid.innerHTML = '';
+
+      newsletters.forEach((newsletter) => {
+        const card = document.createElement('div');
+        card.className = 'newsletter-card';
+
+        card.innerHTML = `
+          <div class="card-month">${newsletter.month}</div>
+          <div class="card-newsletter-title">${newsletter.title || 'Spilling the Tea'}</div>
+          <div class="card-theme">${newsletter.theme || ''}</div>
+          <button class="read-issue-btn" onclick="openModal(event, ${JSON.stringify(newsletter).replace(/"/g, '&quot;')})">
+            Read Issue →
+          </button>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // ── SKELETONS ─────────────────────────────────────────────
+    function renderSkeletons() {
+      const loading = document.getElementById('loading');
+      loading.style.display = 'none';
+
+      const grid = document.getElementById('newsletter-grid');
+      grid.innerHTML = '';
+
+      for (let i = 0; i < 3; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton-card';
+        skeleton.innerHTML = `
+          <div class="skeleton-month skeleton"></div>
+          <div class="skeleton-title skeleton" style="width:80%; height:1.4em; margin-bottom:0.5em;"></div>
+          <div class="skeleton-title skeleton" style="width:60%;"></div>
+        `;
+        grid.appendChild(skeleton);
+      }
+    }
+
+    // ── EMPTY STATE ───────────────────────────────────────────
+    function showEmptyState() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'block';
+      document.getElementById('newsletter-grid').innerHTML = '';
+    }
+
+    // ── OPEN ISSUE ───────────────────────────────────────────
+    function openModal(event, newsletter) {
+      event.stopPropagation();
+      const newsletterUrl = `${CLOUDFRONT_URL}/${newsletter.s3Key}`;
+      window.open(newsletterUrl, '_blank');
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', fetchNewsletters);
+  </script>

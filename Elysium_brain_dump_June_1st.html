@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Elysium — Brain Dump · SBF Internal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── VARIABLES ── */
+    :root {
+      --columbia-blue: #c7e8f3;
+      --amaranth-pink: #eda2c0;
+      --sky-magenta: #DC6BAD;
+      --hot-pink: #fc6dab;
+      --fandango: #af4695;
+      --byzantium: #752f63;
+      --bg: #1a0a14;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(220,107,173,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 80%, rgba(175,70,149,0.25) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 0.5em;
+      padding: 1em 2em;
+      background: rgba(13,6,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1em; font-style: italic;
+      color: var(--amaranth-pink);
+      text-decoration: none;
+      margin-right: 0.5em;
+    }
+    nav a {
+      font-size: 0.82em; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      padding: 0.4em 0.8em;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-badge {
+      margin-left: auto;
+      font-size: 0.72em; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--byzantium);
+      border: 1px solid rgba(117,47,99,0.4);
+      background: rgba(117,47,99,0.12);
+      padding: 0.3em 0.9em;
+      border-radius: 100px;
+    }
+
+    /* ── CONTENT ── */
+    .content { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 4em 2em 2.5em;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero-badge {
+      display: inline-block; font-size: 0.72em; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amaranth-pink);
+      border: 1px solid rgba(237,162,192,0.3);
+      padding: 0.4em 1.2em; border-radius: 100px; margin-bottom: 1.4em;
+      background: rgba(237,162,192,0.06);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2em, 6vw, 3.8em);
+      font-weight: 700; line-height: 1.1; margin-bottom: 0.4em;
+    }
+    .hero h1 em { font-style: italic; color: var(--amaranth-pink); }
+    .hero-sub {
+      font-size: 0.95em; line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5em;
+    }
+    .hero-divider {
+      width: 40px; height: 2px; margin: 1.5em auto;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2em 5em;
+      display: flex;
+      flex-direction: column;
+      gap: 3em;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.68em; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 1em;
+    }
+
+    /* ── GLASS CARD ── */
+    .glass {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 1.8em 2em;
+      position: relative; overflow: hidden;
+    }
+    .glass::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+      opacity: 0.5;
+    }
+    .glass-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2em; font-weight: 700;
+      margin-bottom: 0.5em; color: white;
+    }
+    .glass-body {
+      font-size: 0.9em; line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+    }
+    .glass-body strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+
+    /* ── TIER GRID ── */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1em;
+    }
+    .tier-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 1.5em;
+      position: relative; overflow: hidden;
+    }
+    .tier-card.highlight {
+      border-color: rgba(220,107,173,0.3);
+      background: rgba(220,107,173,0.05);
+    }
+    .tier-card.highlight::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--sky-magenta), var(--columbia-blue));
+    }
+    .tier-name {
+      font-size: 0.68em; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--sky-magenta);
+      margin-bottom: 0.6em;
+    }
+    .tier-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em; font-weight: 700;
+      color: white; margin-bottom: 0.1em; line-height: 1;
+    }
+    .tier-price span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.4em; font-weight: 400;
+      color: rgba(255,255,255,0.45);
+    }
+    .tier-sub {
+      font-size: 0.78em; color: rgba(255,255,255,0.35);
+      margin-bottom: 1em;
+    }
+    .tier-features {
+      font-size: 0.82em; line-height: 1.9;
+      color: rgba(255,255,255,0.5);
+      list-style: none;
+    }
+    .tier-features li::before {
+      content: '→ ';
+      color: var(--sky-magenta);
+    }
+
+    /* ── TWO COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
+    }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── STACK GRID ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8em;
+    }
+    .stack-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1em 1.2em;
+    }
+    .stack-service {
+      font-size: 0.88em; font-weight: 500;
+      color: white; margin-bottom: 0.3em;
+    }
+    .stack-role {
+      font-size: 0.78em; line-height: 1.6;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── FLOW ── */
+    .flow { display: flex; flex-direction: column; gap: 0; }
+    .flow-row { display: flex; align-items: center; gap: 1em; }
+    .flow-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--sky-magenta);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(220,107,173,0.5);
+    }
+    .flow-text {
+      font-size: 0.88em; color: rgba(255,255,255,0.6);
+      padding: 0.55em 0;
+    }
+    .flow-arrow {
+      font-size: 0.75em; color: rgba(255,255,255,0.2);
+      padding-left: 1.4em;
+    }
+
+    /* ── WINS ── */
+    .wins { display: flex; flex-wrap: wrap; gap: 0.5em; }
+    .win-badge {
+      display: inline-block;
+      font-size: 0.75em; font-weight: 500;
+      padding: 0.35em 1em;
+      border-radius: 100px;
+    }
+    .win-blue {
+      background: rgba(183,212,244,0.1);
+      border: 1px solid rgba(183,212,244,0.2);
+      color: var(--columbia-blue);
+    }
+    .win-pink {
+      background: rgba(237,162,192,0.1);
+      border: 1px solid rgba(237,162,192,0.2);
+      color: var(--amaranth-pink);
+    }
+    .win-purple {
+      background: rgba(175,70,149,0.1);
+      border: 1px solid rgba(175,70,149,0.3);
+      color: #d08fca;
+    }
+
+    /* ── NEXT SECTION ── */
+    .next-card {
+      background: linear-gradient(135deg, rgba(175,70,149,0.12), rgba(220,107,173,0.07));
+      border: 1px solid rgba(175,70,149,0.25);
+      border-radius: 20px;
+      padding: 2em;
+      text-align: center;
+    }
+    .next-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5em; margin-bottom: 0.5em;
+    }
+    .next-card h2 em { font-style: italic; color: var(--amaranth-pink); }
+    .next-card p {
+      font-size: 0.9em; line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      max-width: 500px; margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 2em;
+      font-size: 0.75em;
+      color: rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-1 { animation: fadeUp 0.7s ease 0.1s forwards; opacity: 0; }
+    .fade-2 { animation: fadeUp 0.7s ease 0.2s forwards; opacity: 0; }
+    .fade-3 { animation: fadeUp 0.7s ease 0.35s forwards; opacity: 0; }
+    .fade-4 { animation: fadeUp 0.7s ease 0.5s forwards; opacity: 0; }
+    .fade-5 { animation: fadeUp 0.7s ease 0.65s forwards; opacity: 0; }
+    .fade-6 { animation: fadeUp 0.7s ease 0.8s forwards; opacity: 0; }
+    .fade-7 { animation: fadeUp 0.7s ease 0.95s forwards; opacity: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="nav-brand" href="./home.html">SBF</a>
+    <a href="./single.html">Single</a>
+    <a href="./bougie.html">Bougie</a>
+    <a href="./free.html">Free</a>
+    <a href="./archive.html">The Tea Vault</a>
+    <a href="./tech.html">Tech</a>
+    <span class="nav-badge">Internal Doc</span>
+  </nav>
+
+  <div class="content">
+
+    <!-- ── HERO ── -->
+    <div class="hero">
+      <span class="hero-badge">Internal · Pre-Build Reference</span>
+      <h1><em>Elysium</em> Brain Dump</h1>
+      <p class="hero-sub">Session notes from June 1, 2026 — product scoping for the SBF premium portal.</p>
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- ── MAIN ── -->
+    <div class="main">
+
+      <!-- Product Identity -->
+      <section class="fade-1">
+        <p class="section-label">Product identity</p>
+        <div class="glass">
+          <h2 class="glass-title">Working name: Elysium</h2>
+          <p class="glass-body">Internal name for the SBF premium portal. A whole other realm — the version of this life where this is a full-time job. Think Inception: you click and step into a world where SBF runs at full scale. Not yet public-facing.<br><br>
+          External brand candidates: <strong>Elysium by Kator</strong> · <strong>Kator's Elysium</strong> · <strong>The Elysium — A Kator Experience</strong></p>
+        </div>
+      </section>
+
+      <!-- Business Model -->
+      <section class="fade-2">
+        <p class="section-label">Business model</p>
+        <div class="glass">
+          <h2 class="glass-title">Freemium + depth per category</h2>
+          <p class="glass-body">
+            Free tier gives real value — no woman leaves empty-handed. The newsletter is the teaser. Elysium is the full meal.<br><br>
+            Paid tier unlocks the <strong>full hub per category</strong> — not just more resources, but deeper content layered together. A financial hub covers budgeting AND life insurance AND estate planning in one place. A legal hub covers tenant rights AND contracts AND small business law. Women pay for <strong>depth, not breadth</strong>.<br><br>
+            Community forum stays free. Connection is the mission. Paid members need active, engaged people to talk to — a locked forum kills the energy.
+          </p>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="fade-3">
+        <p class="section-label">Pricing tiers</p>
+        <div class="tier-grid">
+          <div class="tier-card">
+            <p class="tier-name">Free</p>
+            <p class="tier-price">$0</p>
+            <p class="tier-sub">Always open</p>
+            <ul class="tier-features">
+              <li>Newsletter archive</li>
+              <li>Community forum</li>
+              <li>1 resource per category</li>
+            </ul>
+          </div>
+          <div class="tier-card highlight">
+            <p class="tier-name">Premium</p>
+            <p class="tier-price">$9.99<span>/month</span></p>
+            <p class="tier-sub">Netflix/Spotify price psychology</p>
+            <ul class="tier-features">
+              <li>Full category hubs</li>
+              <li>Deep-dive resources</li>
+              <li>Exclusive newsletter content</li>
+              <li>Early access to new features</li>
+            </ul>
+          </div>
+          <div class="tier-card">
+            <p class="tier-name">Annual</p>
+            <p class="tier-price">$99<span>/year</span></p>
+            <p class="tier-sub">2 months free — proven converter</p>
+            <ul class="tier-features">
+              <li>Everything in Premium</li>
+              <li>"2 months free" positioning</li>
+              <li>Best value anchor</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter Strategy -->
+      <section class="fade-3">
+        <p class="section-label">Newsletter strategy</p>
+        <div class="glass">
+          <h2 class="glass-title">One newsletter · Two access levels</h2>
+          <p class="glass-body">
+            Everyone gets the same email. The "Go Deeper" link at the bottom of each section resolves differently based on Cognito tier.<br><br>
+            <strong>Free users</strong> → hits an upgrade prompt ("This is a Premium resource.")<br>
+            <strong>Premium users</strong> → goes straight into the full hub<br><br>
+            One template to maintain. Free users always see what they're missing — that's the <strong>conversion engine</strong>. Same reason Spotify cuts a song at 30 seconds on free tier.
+          </p>
+        </div>
+      </section>
+
+      <!-- Digital Products -->
+      <section class="fade-4">
+        <p class="section-label">Digital products (future revenue layer)</p>
+        <div class="two-col">
+          <div class="glass">
+            <h2 class="glass-title">One-time purchases</h2>
+            <p class="glass-body">Templates (budget spreadsheets, lease checklists, negotiation email scripts) · Workbooks (30-day financial reset, solo life blueprint) · Mini courses (focused, under-a-weekend, actionable).<br><br>Women pay for a <strong>tangible thing they own</strong> — something to download, print, work through. Different psychological value than a subscription.</p>
+          </div>
+          <div class="glass">
+            <h2 class="glass-title">Bundle strategy</h2>
+            <p class="glass-body">Premium membership + digital product = <strong>starter pack</strong>.<br><br>~$29 entry point: 3 months premium + one financial workbook. New member is now invested in the community AND has something in hand. Adds Stripe one-time payments alongside subscriptions — same setup, different payment type.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Auth & Payments -->
+      <section class="fade-4">
+        <p class="section-label">Auth &amp; payments decisions</p>
+        <div class="two-col">
+          <div class="glass">
+            <h2 class="glass-title">Social sign-in</h2>
+            <p class="glass-body"><strong>Google + Apple</strong> to start. Facebook later if needed.<br><br>Apple required now — retrofitting it when the mobile app is built is painful. Lower friction = more sign-ups.</p>
+          </div>
+          <div class="glass">
+            <h2 class="glass-title">Stripe for payments</h2>
+            <p class="glass-body">Web-first platform = Stripe. Industry standard for SaaS subscriptions. Google/Apple billing added <em>alongside</em> Stripe when the mobile app exists — that's normal, Spotify does exactly this.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AWS Stack -->
+      <section class="fade-5">
+        <p class="section-label">AWS services in play</p>
+        <div class="stack-grid">
+          <div class="stack-item">
+            <p class="stack-service">S3 + CloudFront</p>
+            <p class="stack-role">Host the frontend. CloudFront Free Plan activated 5/31/26.</p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-service">Cognito</p>
+            <p class="stack-role">Auth + user groups (free / premium). Issues JWT tokens checked by Lambda on every protected request.</p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-service">API Gateway</p>
+            <p class="stack-role">All request routing. Also receives the Stripe webhook on payment confirmation.</p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-service">Lambda</p>
+            <p class="stack-role">All business logic. Moves users between Cognito groups when payment clears.</p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-service">DynamoDB</p>
+            <p class="stack-role">Users, resources, subscriptions. Schema TBD — next session.</p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-service">SES</p>
+            <p class="stack-role">Welcome emails, payment receipts. Custom domain @singlebougiefree.com confirmed.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Payment Flow -->
+      <section class="fade-5">
+        <p class="section-label">Payment flow</p>
+        <div class="glass">
+          <h2 class="glass-title" style="margin-bottom:1.2em;">User upgrades to Premium</h2>
+          <div class="flow">
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">User clicks Upgrade in Elysium</span></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">Stripe Checkout (hosted payment page)</span></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">Payment clears → Stripe fires webhook → API Gateway receives it</span></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">Lambda moves user: free group → premium group in Cognito</span></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">JWT token updated → user sees full hubs immediately</span></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-row"><div class="flow-dot"></div><span class="flow-text">SES sends welcome + receipt email from @singlebougiefree.com</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What's Next -->
+      <section class="fade-6">
+        <p class="section-label">What's next</p>
+        <div class="next-card">
+          <h2><em>Data model</em> — next session</h2>
+          <p>Define what a "user" looks like in DynamoDB. What a "resource" looks like. How the system knows what to show who. This is the dependency everything else builds on — Cognito schema, Lambda logic, resource gating. Nothing can be built until this is locked.</p>
+        </div>
+      </section>
+
+      <!-- Wins -->
+      <section class="fade-7">
+        <p class="section-label">Wins from tonight · June 1, 2026</p>
+        <div class="wins">
+          <span class="win-blue">☁️ CloudFront Free Plan activated</span>
+          <span class="win-pink">✉️ @singlebougiefree.com email confirmed</span>
+          <span class="win-purple">✨ Elysium portal fully scoped</span>
+          <span class="win-blue">🔓 Freemium model locked</span>
+          <span class="win-pink">💰 Pricing decided: $9.99 / $99</span>
+          <span class="win-purple">🔐 Auth + payments stack decided</span>
+          <span class="win-blue">🗂️ Digital products strategy mapped</span>
+        </div>
+      </section>
+
+    </div><!-- /main -->
+  </div><!-- /content -->
+
+  <footer>
+    Single Bougie Free · Internal Documentation · singlebougiefree.com · Not for public distribution
+  </footer>
+
+</body>
+</html>

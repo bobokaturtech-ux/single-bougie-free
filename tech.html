@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Katurah Bobo | AWS Portfolio — Single Bougie Free</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --columbia-blue: #c7e8f3;
+      --wisteria: #bf9aca;
+      --quinacridone-magenta: #8e4162;
+      --jet: #41393e;
+      --amaranth-pink: #eda2c0;
+      --sky-magenta: #DC6BAD;
+      --hot-pink: #fc6dab;
+      --fandango: #af4695;
+      --byzantium: #752f63;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 22px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0d0610;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 10% 10%, rgba(220,107,173,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 85%, rgba(175,70,149,0.38) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(143,65,98,0.22) 0%, transparent 65%),
+        radial-gradient(ellipse at 75% 20%, rgba(199,232,243,0.1) 0%, transparent 40%),
+        #1e0e24;
+    }
+    .grid-overlay {
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(199,232,243,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(199,232,243,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 0.5em;
+      padding: 1em 2em;
+      background: rgba(13,6,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+    nav a {
+      font-size: 0.88em; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      padding: 0.4em 0.8em;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: white; background: rgba(255,255,255,0.06); }
+    nav a.active { color: var(--sky-magenta); }
+    .nav-contact { margin-left: auto; position: relative; }
+    .nav-contact-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88em; font-weight: 500;
+      padding: 0.4em 0.8em; border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 0.3em;
+    }
+    .nav-contact-btn:hover, .nav-contact-btn.open { color: white; background: rgba(255,255,255,0.06); }
+    .chevron { transition: transform 0.2s; display: inline-block; }
+    .nav-contact-btn.open .chevron { transform: rotate(180deg); }
+    .contact-dropdown {
+      position: absolute; right: 0; top: calc(100% + 8px);
+      background: #1a0a1e; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 0.5em;
+      min-width: 220px;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .contact-dropdown.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 0.8em;
+      padding: 0.75em 1em; border-radius: 8px; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .dropdown-item:hover { background: rgba(255,255,255,0.07); }
+    .di-icon { font-size: 1.2em; }
+    .di-label { display: flex; flex-direction: column; }
+    .di-label span:first-child { font-size: 0.85em; font-weight: 500; color: white; }
+    .di-sub { font-size: 0.75em; color: rgba(255,255,255,0.4); }
+
+    /* ── SECTIONS ── */
+    .section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 5em 2em 4em;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6em;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky-magenta);
+      border: 1px solid rgba(220,107,173,0.3);
+      padding: 0.5em 1.2em; border-radius: 100px;
+      background: rgba(220,107,173,0.08);
+      margin-bottom: 1.8em;
+      animation: fadeUp 0.8s ease forwards; opacity: 0;
+    }
+    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-magenta); display: inline-block; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4em, 6vw, 4.8em);
+      font-weight: 700; line-height: 1.08;
+      margin-bottom: 0.5em;
+      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
+    }
+    .hero-headline em { font-style: italic; color: var(--sky-magenta); }
+
+    .hero-bio {
+      max-width: 680px; margin: 0 auto 2.5em;
+      font-size: clamp(1.05em, 2vw, 1.2em);
+      line-height: 1.85; color: rgba(255,255,255,0.7);
+      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
+    }
+    .hero-bio strong { color: var(--columbia-blue); font-weight: 500; }
+
+    .hero-badges {
+      display: flex; gap: 0.8em; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.8s ease 0.45s forwards; opacity: 0;
+    }
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.5em 1.1em; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.04);
+    }
+    .badge.highlight { border-color: rgba(220,107,173,0.4); color: var(--sky-magenta); background: rgba(220,107,173,0.08); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-cue {
+      margin-top: 3em;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5em;
+      color: rgba(255,255,255,0.2); font-size: 0.82em; letter-spacing: 0.15em; text-transform: uppercase;
+      animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0;
+    }
+    .scroll-arrow {
+      width: 24px; height: 24px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+
+    /* ── SECTION LAYOUT ── */
+    .content-section {
+      max-width: 1280px; margin: 0 auto;
+      padding: 5em 2em;
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5em;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8em; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sky-magenta);
+      margin-bottom: 0.8em;
+    }
+    .section-label::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1px; background: var(--sky-magenta);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8em, 4vw, 2.8em);
+      font-weight: 700; line-height: 1.15;
+      margin-bottom: 0.5em; color: white;
+    }
+    .section-title em { font-style: italic; color: var(--columbia-blue); }
+    .section-sub {
+      font-size: 1.05em; color: rgba(255,255,255,0.65);
+      max-width: 600px; line-height: 1.75;
+      margin-bottom: 3em;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220,107,173,0.2) 30%, rgba(199,232,243,0.15) 70%, transparent);
+      margin: 0;
+    }
+
+    /* ── PHASE 1: ARCHITECTURE ── */
+    .arch-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3em;
+      align-items: stretch;
+    }
+    .arch-diagram {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2em;
+      position: relative;
+      overflow: hidden;
+    }
+    .arch-diagram::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top left, rgba(220,107,173,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .diagram-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 1.5em;
+    }
+
+    /* Flow diagram nodes */
+    .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .flow-group { display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .flow-node {
+      width: 100%;
+      display: flex; align-items: center; gap: 0.75em;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 0.9em 1.2em;
+      transition: border-color 0.2s, background 0.2s;
+      min-width: 0;
+    }
+    .flow-node:hover { border-color: rgba(220,107,173,0.35); background: rgba(220,107,173,0.06); }
+    .flow-node.accent { border-color: rgba(220,107,173,0.25); background: rgba(220,107,173,0.07); }
+    .flow-node.blue-accent { border-color: rgba(199,232,243,0.2); background: rgba(199,232,243,0.05); }
+    .node-icon {
+      font-size: 1.2em; width: 30px; text-align: center; flex-shrink: 0;
+    }
+    .node-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 1em; font-weight: 500;
+      color: white; letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .node-desc {
+      font-size: 0.95em; color: rgba(255,255,255,0.7);
+      margin-left: auto; text-align: right;
+      white-space: nowrap;
+    }
+    .flow-arrow {
+      width: 1px; height: 22px;
+      background: linear-gradient(180deg, rgba(220,107,173,0.5), rgba(220,107,173,0.2));
+      position: relative; margin: 2px 0;
+    }
+    .flow-arrow::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 50%; transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid rgba(220,107,173,0.5);
+    }
+    .flow-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.6em; width: 100%;
+    }
+    .flow-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88em; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      padding: 0.4em 0; width: 100%; text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 0.5em;
+    }
+    .flow-merge-arrow {
+      width: 1px; height: 22px;
+      background: linear-gradient(180deg, rgba(199,232,243,0.4), rgba(199,232,243,0.2));
+      position: relative; margin: 2px 0;
+    }
+    .flow-merge-arrow::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 50%; transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid rgba(199,232,243,0.4);
+    }
+
+    /* Arch decisions */
+    .arch-decisions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2em; align-items: start; }
+    .decision-card {
+      border-left: 2px solid var(--sky-magenta);
+      padding: 1em 1.2em;
+      background: rgba(255,255,255,0.02);
+      border-radius: 0 10px 10px 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .decision-card:hover { border-color: var(--columbia-blue); background: rgba(199,232,243,0.04); }
+    .decision-service {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--sky-magenta); margin-bottom: 0.3em;
+    }
+    .decision-why {
+      font-size: 0.95em; color: rgba(255,255,255,0.75); line-height: 1.65;
+    }
+    .decision-why strong { color: white; font-weight: 500; }
+    .status-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72em; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25em 0.8em; border-radius: 100px;
+      margin-top: 0.5em;
+    }
+    .status-live { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .status-progress { background: rgba(220,107,173,0.1); color: var(--sky-magenta); border: 1px solid rgba(220,107,173,0.2); }
+
+    /* ── PHASE 2: CONCEPTUAL ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2em;
+    }
+    .concept-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.5em;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .concept-card:hover { border-color: rgba(220,107,173,0.25); transform: translateY(-3px); }
+    .concept-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--byzantium), var(--sky-magenta));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .concept-card:hover::before { opacity: 1; }
+    .concept-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78em; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--sky-magenta); margin-bottom: 0.5em;
+    }
+    .concept-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15em; font-weight: 700;
+      color: white; margin-bottom: 0.5em;
+    }
+    .concept-desc {
+      font-size: 0.93em; color: rgba(255,255,255,0.65);
+      line-height: 1.6; margin-bottom: 0.8em;
+    }
+    .concept-stack {
+      display: flex; flex-wrap: wrap; gap: 0.4em;
+    }
+    .stack-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72em; letter-spacing: 0.08em;
+      color: var(--columbia-blue);
+      background: rgba(199,232,243,0.07);
+      border: 1px solid rgba(199,232,243,0.15);
+      padding: 0.2em 0.6em; border-radius: 4px;
+    }
+    .concept-disclaimer {
+      display: inline-flex; align-items: center; gap: 0.4em;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78em; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.6em 1.2em; border-radius: 100px;
+      margin-bottom: 2.5em;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1em;
+    }
+    .skill-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25em 1.5em;
+      transition: border-color 0.2s;
+    }
+    .skill-card:hover { border-color: rgba(220,107,173,0.2); }
+    .skill-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.8em;
+    }
+    .skill-name {
+      font-size: 0.95em; font-weight: 500; color: white;
+    }
+    .skill-week {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75em; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+    }
+    .skill-bar-track {
+      height: 4px; background: rgba(255,255,255,0.07);
+      border-radius: 100px; margin-bottom: 0.6em;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, var(--byzantium), var(--sky-magenta));
+      transition: width 1s ease;
+    }
+    .skill-bar-fill.blue { background: linear-gradient(90deg, #1e6fa8, var(--columbia-blue)); }
+    .skill-sbf {
+      font-size: 0.82em; color: rgba(220,107,173,0.7);
+      font-style: italic;
+    }
+    .skills-note {
+      margin-top: 2em;
+      font-size: 0.88em; color: rgba(255,255,255,0.3);
+      font-style: italic; text-align: center;
+    }
+
+    /* ── CONTACT CTA ── */
+    .contact-cta {
+      text-align: center;
+      padding: 5em 2em 6em;
+    }
+    .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2em, 4.5vw, 3.2em);
+      font-weight: 700; margin-bottom: 0.5em;
+    }
+    .cta-headline em { font-style: italic; color: var(--sky-magenta); }
+    .cta-sub {
+      font-size: 1.05em; color: rgba(255,255,255,0.55);
+      max-width: 480px; margin: 0 auto 2.5em;
+      line-height: 1.75;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.6em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95em; font-weight: 600;
+      letter-spacing: 0.05em;
+      color: white;
+      background: linear-gradient(135deg, var(--byzantium), var(--sky-magenta));
+      border: none; border-radius: 100px;
+      padding: 0.9em 2.2em;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(220,107,173,0.3); }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 1.5em;
+      font-size: 0.82em; color: rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5em;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: #1a0a1e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 2.5em;
+      max-width: 480px; width: 100%;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 1.2em; right: 1.2em;
+      background: rgba(255,255,255,0.06);
+      border: none; color: rgba(255,255,255,0.5);
+      width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; font-size: 0.85em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: white; }
+    .modal-deco { font-size: 2em; margin-bottom: 0.5em; }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6em; font-weight: 700; color: white; margin-bottom: 0.4em;
+    }
+    .modal-prompt { font-size: 0.88em; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 1.5em; }
+    .modal-field { margin-bottom: 1em; }
+    .modal-field label { display: block; font-size: 0.88em; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); margin-bottom: 0.4em; text-transform: uppercase; }
+    .modal-field input, .modal-field textarea {
+      width: 100%; padding: 0.75em 1em;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9em;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+    .modal-field input:focus, .modal-field textarea:focus { border-color: var(--sky-magenta); background: rgba(220,107,173,0.05); }
+    .modal-field textarea { resize: vertical; min-height: 100px; }
+    .modal-field input::placeholder, .modal-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .char-count { font-size: 0.72em; color: rgba(255,255,255,0.25); text-align: right; margin-top: 0.3em; }
+    .char-count.warn { color: var(--sky-magenta); }
+    .pill-selector { display: flex; gap: 0.5em; }
+    .pill-select-btn {
+      flex: 1; font-family: 'DM Sans', sans-serif;
+      font-size: 0.82em; font-weight: 500;
+      padding: 0.6em 1em; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.5); cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pill-select-btn:hover { border-color: rgba(220,107,173,0.4); color: white; }
+    .pill-select-btn.selected { border-color: var(--sky-magenta); background: rgba(220,107,173,0.1); color: white; }
+    .optin-wrap { margin-bottom: 1.2em; }
+    .optin-btn, .tech-optin-btn {
+      display: flex; align-items: center; gap: 0.6em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82em; color: rgba(255,255,255,0.45);
+      background: none; border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.6em 1em; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; width: 100%;
+    }
+    .optin-btn:hover, .tech-optin-btn:hover { border-color: rgba(220,107,173,0.3); color: rgba(255,255,255,0.7); }
+    .optin-btn.selected, .tech-optin-btn.selected { border-color: var(--sky-magenta); color: white; background: rgba(220,107,173,0.08); }
+    .optin-check { width: 16px; height: 16px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7em; color: var(--sky-magenta); flex-shrink: 0; }
+    .modal-submit {
+      width: 100%; padding: 0.85em;
+      background: linear-gradient(135deg, var(--byzantium), var(--sky-magenta));
+      border: none; border-radius: 12px;
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95em; font-weight: 600; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .modal-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(220,107,173,0.3); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Thank you */
+    .thankyou-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5em;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .thankyou-overlay.open { opacity: 1; pointer-events: all; }
+    .thankyou-card {
+      background: #1a0a1e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 3em 2.5em;
+      text-align: center; max-width: 360px; width: 100%;
+    }
+    .thankyou-emoji { font-size: 2.5em; margin-bottom: 0.5em; }
+    .thankyou-title { font-family: 'Playfair Display', serif; font-size: 1.6em; font-weight: 700; color: white; margin-bottom: 0.3em; }
+    .thankyou-sub { font-size: 0.9em; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 0.5em; }
+    .thankyou-sig { font-family: 'Playfair Display', serif; font-style: italic; color: var(--sky-magenta); margin-bottom: 1.5em; }
+    .thankyou-close {
+      background: linear-gradient(135deg, var(--byzantium), var(--sky-magenta));
+      border: none; color: white; padding: 0.7em 2em;
+      border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9em;
+    }
+    .tech-thankyou .thankyou-title { color: white; }
+    .tech-thankyou .thankyou-sig { color: var(--columbia-blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .arch-wrap { grid-template-columns: 1fr; }
+      .flow-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer"></div>
+  <div class="grid-overlay"></div>
+
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./single.html">Single</a>
+    <a href="./bougie.html">Bougie</a>
+    <a href="./free.html">Free</a>
+    <a href="./archive.html">The Tea Vault</a>
+    <a href="./tech.html" class="active">Tech & Roadmap</a>
+    <div class="nav-contact">
+      <button class="nav-contact-btn" id="contactBtn" onclick="toggleDropdown()">
+        Contact <span class="chevron">▾</span>
+      </button>
+      <div class="contact-dropdown" id="contactDropdown">
+        <div class="dropdown-item" onclick="openModal('sbf')">
+          <span class="di-icon">🩷</span>
+          <span class="di-label">
+            <span>For the Baddies</span>
+            <span class="di-sub">Spill your tea with us</span>
+          </span>
+        </div>
+        <div class="dropdown-item" onclick="openModal('tech')">
+          <span class="di-icon">⚙️</span>
+          <span class="di-label">
+            <span>I'm a Techie</span>
+            <span class="di-sub">Let's talk shop</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="section hero">
+    <div class="hero-eyebrow">
+      <span></span> AWS Portfolio Project · Single Bougie Free
+    </div>
+    <h1 class="hero-headline">This is what I built<br><em>without a cloud job.</em><br>Imagine what I could build with one.</h1>
+    <p class="hero-bio">
+      I'm <strong>Katurah Bobo</strong> — a 4-year claims adjuster by day, and an aspiring Cloud Solutions Architect with a focus on FinOps by night. I'm fighting the "need experience to get experience" cycle by building my own proof. Single Bougie Free is a real, production AWS platform I built from scratch — with the right tools, no team, and a lot of drive. I'm looking for a leader who invests in potential — the kind who looks back and says they saw it first.
+    </p>
+    <div class="hero-badges">
+      <span class="badge highlight">Cloud Solutions Architect</span>
+      <span class="badge highlight">FinOps</span>
+      <span class="badge">AWS Academy</span>
+      <span class="badge">Serverless</span>
+      <span class="badge">Georgia Piedmont Tech College</span>
+    </div>
+    <div class="scroll-cue">
+      <span>See the work</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ PHASE 1 ══ -->
+  <section class="section">
+    <div class="content-section">
+      <div style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <div class="section-label">Phase 1</div>
+        <h2 class="section-title">Serverless <em>by Design</em></h2>
+        <p class="section-sub">Every piece of this pipeline was chosen intentionally. API Gateway handles intake, Lambda processes logic, DynamoDB stores members, SES delivers — and EventBridge fires the monthly batch automatically on the 1st. Zero servers to manage.</p>
+      </div>
+
+      <div class="arch-wrap">
+        <!-- Flow Diagram -->
+        <div class="arch-diagram">
+          <div class="diagram-title">// Live architecture · production</div>
+
+          <div class="flow">
+            <!-- Onboarding path -->
+            <div class="flow-label">Member onboarding flow</div>
+
+            <div class="flow-group">
+              <div class="flow-node accent">
+                <span class="node-icon">📋</span>
+                <span class="node-name">Intake Form</span>
+                <span class="node-desc">singlebougiefree.com</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node">
+                <span class="node-icon">🔌</span>
+                <span class="node-name">API Gateway</span>
+                <span class="node-desc">REST · /prod/intake</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node">
+                <span class="node-icon">λ</span>
+                <span class="node-name">Lambda</span>
+                <span class="node-desc">Intake processor</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node blue-accent">
+                <span class="node-icon">🗄️</span>
+                <span class="node-name">DynamoDB</span>
+                <span class="node-desc">IntakeSubmissions table</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node accent">
+                <span class="node-icon">✉️</span>
+                <span class="node-name">SES</span>
+                <span class="node-desc">Welcome + current issue</span>
+              </div>
+            </div>
+
+            <div class="flow-label" style="margin-top:1.2em;">Archive retrieval flow</div>
+
+            <div class="flow-group">
+              <div class="flow-node accent">
+                <span class="node-icon">🗂️</span>
+                <span class="node-name">Archive Page</span>
+                <span class="node-desc">singlebougiefree.com</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node">
+                <span class="node-icon">🔌</span>
+                <span class="node-name">API Gateway</span>
+                <span class="node-desc">REST · /archive</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node">
+                <span class="node-icon">λ</span>
+                <span class="node-name">Lambda</span>
+                <span class="node-desc">sbf-archive-index</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-node blue-accent">
+                <span class="node-icon">🪣</span>
+                <span class="node-name">S3 + CloudFront</span>
+                <span class="node-desc">sbf-newsletter · OAC</span>
+              </div>
+            </div>
+
+            <div class="flow-label" style="margin-top:1.2em;">Monthly send flow</div>
+
+            <div class="flow-group">
+              <div class="flow-split">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+                  <div class="flow-node" style="border-color:rgba(175,70,149,0.3);">
+                    <span class="node-icon">📅</span>
+                    <span class="node-name">EventBridge</span>
+                  </div>
+                  <div style="font-size:0.65em;color:rgba(255,255,255,0.2);margin:0.3em 0;">1st of month</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+                  <div class="flow-node" style="border-color:rgba(199,232,243,0.2);">
+                    <span class="node-icon">📊</span>
+                    <span class="node-name">Airtable</span>
+                  </div>
+                  <div style="font-size:0.65em;color:rgba(255,255,255,0.2);margin:0.3em 0;">Content curation</div>
+                </div>
+              </div>
+              <div class="flow-merge-arrow"></div>
+              <div class="flow-node">
+                <span class="node-icon">λ</span>
+                <span class="node-name">Lambda</span>
+                <span class="node-desc">Batch send processor</span>
+              </div>
+              <div class="flow-arrow"></div>
+              <div class="flow-split">
+                <div class="flow-node accent" style="font-size:0.9em;">
+                  <span class="node-icon">✉️</span>
+                  <span class="node-name">SES</span>
+                </div>
+                <div class="flow-node blue-accent" style="font-size:0.9em;">
+                  <span class="node-icon">🪣</span>
+                  <span class="node-name">S3 Archive</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision Rationale -->
+        <div class="arch-decisions">
+          <div class="decision-card">
+            <div class="decision-service">API Gateway + Lambda</div>
+            <div class="decision-why"><strong>Why not a traditional server?</strong> The intake form gets bursts of submissions, not steady traffic. Serverless scales to zero between submissions — no idle EC2 cost.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">DynamoDB</div>
+            <div class="decision-why"><strong>Why not RDS?</strong> Member data is schemaless and read-heavy. DynamoDB's on-demand billing means I pay per request, not per hour for a running database instance.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">EventBridge + Batch Lambda</div>
+            <div class="decision-why"><strong>Why EventBridge?</strong> A cron-style rule fires the newsletter Lambda on the 1st of every month. No polling, no manual sends — fully automated delivery with zero intervention.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">Airtable as CMS</div>
+            <div class="decision-why"><strong>Why not a custom admin page?</strong> Airtable gives me a spreadsheet-style interface for curating 6 content sections without building a custom UI — keeping engineering effort where it matters.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">SES Welcome Email</div>
+            <div class="decision-why"><strong>Triggered on signup.</strong> New members receive the current newsletter immediately on intake — before being added to the EventBridge batch list.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">sbf-archive-index Lambda</div>
+            <div class="decision-why"><strong>Why not a database query?</strong> Queries the sbf-newsletter bucket and returns card-ready data to the front end. One Lambda replaces an entire CMS.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">CloudFront · Newsletter CDN</div>
+            <div class="decision-why"><strong>Why a separate distribution?</strong> Newsletter CDN layer with Origin Access Control. Newsletters are private in S3; CloudFront is the only way in.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">API Gateway · /archive Route</div>
+            <div class="decision-why"><strong>Why not a new endpoint?</strong> Extends the production API with a read-only archive endpoint, demonstrating multi-route API design on a single Gateway.</div>
+            <span class="status-pill status-live">Live</span>
+          </div>
+          <div class="decision-card">
+            <div class="decision-service">CodePipeline · CI/CD</div>
+            <div class="decision-why"><strong>Full CI/CD pipeline:</strong> GitHub is the source of truth. CodePipeline detects every push, deploys to S3, and fires a CloudFront invalidation automatically — replacing a manual multi-step process with a single git push.</div>
+            <span class="status-pill status-progress">In Progress</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ PHASE 2: CONCEPTUAL ══ -->
+  <section class="section">
+    <div class="content-section">
+      <div style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <div class="section-label">Conceptual Architecture</div>
+        <h2 class="section-title">Scaled for Monetization:<br><em>A Conceptual Architecture</em></h2>
+        <p class="section-sub">This is not a roadmap. It's a design exercise — documenting the architecture SBF would require if it were to scale and monetize. Every service was chosen intentionally. Every decision I'm ready to defend.</p>
+      </div>
+
+      <div class="concept-disclaimer">
+        ⚠️ &nbsp; Designed but not deployed · Conceptual only
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-label">Real-time pipeline</div>
+          <div class="concept-title">Mood Trend Detection</div>
+          <div class="concept-desc">Members submit regular mood surveys. Kinesis ingests the stream. Apache Flink detects trend anomalies in real time. If a member's score drops, SNS fires a personalized nudge — before they go quiet.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">Kinesis</span>
+            <span class="stack-chip">Flink</span>
+            <span class="stack-chip">Lambda</span>
+            <span class="stack-chip">SNS</span>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-label">Engagement mechanic</div>
+          <div class="concept-title">Auto Baddie Promotions</div>
+          <div class="concept-desc">Members progress through tiers: New → Freshman → Sophomore → Junior → Senior Baddie. EventBridge triggers a monthly Lambda that recalculates designations, updates DynamoDB, and sends congratulations via SNS.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">EventBridge</span>
+            <span class="stack-chip">Lambda</span>
+            <span class="stack-chip">DynamoDB</span>
+            <span class="stack-chip">SNS</span>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-label">Analytics layer</div>
+          <div class="concept-title">Community Insights</div>
+          <div class="concept-desc">Mood data, engagement patterns, and resource interactions feed into Athena for SQL-based querying. DataBrew handles scheduled data cleaning. QuickSight surfaces dashboards for admin and user views.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">Athena</span>
+            <span class="stack-chip">DataBrew</span>
+            <span class="stack-chip">QuickSight</span>
+            <span class="stack-chip">S3</span>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-label">FinOps dashboard</div>
+          <div class="concept-title">Cost Intelligence</div>
+          <div class="concept-desc">Cost Explorer API feeds a Lambda that writes to S3. Athena queries cost-by-service and cost-per-active-user. QuickSight renders a FinOps dashboard with idle resource detection and optimization recommendations.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">Cost Explorer</span>
+            <span class="stack-chip">Lambda</span>
+            <span class="stack-chip">Athena</span>
+            <span class="stack-chip">QuickSight</span>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-label">Third-party data</div>
+          <div class="concept-title">Resource Hub Ingestion</div>
+          <div class="concept-desc">Government and wellness datasets (BLS, HUD, mental health APIs) ingest via AWS Data Exchange. EventBridge schedules refreshes. DataBrew cleans and normalizes. S3 stores for downstream consumption.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">Data Exchange</span>
+            <span class="stack-chip">EventBridge</span>
+            <span class="stack-chip">DataBrew</span>
+            <span class="stack-chip">S3</span>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-label">Infrastructure as code</div>
+          <div class="concept-title">Repeatable Deployments</div>
+          <div class="concept-desc">The full SBF stack defined in CloudFormation — every Lambda, table, bucket, and API endpoint version-controlled and deployable in a single command. CI/CD via CodePipeline for automated releases.</div>
+          <div class="concept-stack">
+            <span class="stack-chip">CloudFormation</span>
+            <span class="stack-chip">CodePipeline</span>
+            <span class="stack-chip">IAM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ SKILLS ══ -->
+  <section class="section">
+    <div class="content-section">
+      <div style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <div class="section-label">Learning in Public</div>
+        <h2 class="section-title">Always Deploying:<br><em>Cloud Skills in Progress</em></h2>
+        <p class="section-sub">Currently completing AWS Cloud Operations (CIST 2484) at Georgia Piedmont Technical College. Every module maps directly to SBF's architecture. This tracker updates as I go.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">IAM &amp; Systems Operations</span>
+            <span class="skill-week">Wk 2 · 05/28</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill blue" style="width:60%"></div></div>
+          <div class="skill-sbf">→ IAM roles scoping Lambda permissions on SBF · Applied in production · Module pending</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">S3 Static Hosting</span>
+            <span class="skill-week">Wk 2 · 05/28</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill blue" style="width:85%"></div></div>
+          <div class="skill-sbf">→ SBF site hosted on S3 + CloudFront · Live</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">EC2 &amp; Auto Scaling</span>
+            <span class="skill-week">Wk 3–4 · 06/04</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ Scaling concepts applied to Lambda concurrency decisions</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">Lambda + API Gateway</span>
+            <span class="skill-week">Wk 4 · 06/11</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill blue" style="width:90%"></div></div>
+          <div class="skill-sbf">→ Powers SBF intake form + newsletter pipeline · Live</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">RDS, Aurora &amp; DynamoDB</span>
+            <span class="skill-week">Wk 5 · 06/18</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ DynamoDB IntakeSubmissions table already designed + live</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">VPC &amp; Networking</span>
+            <span class="skill-week">Wk 5 · 06/18</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ VPC isolation for future RDS or ECS deployments</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">CloudWatch &amp; CloudTrail</span>
+            <span class="skill-week">Wk 7 · 07/02</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ Adding monitoring + alerting to SBF newsletter Lambda</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">Cost Management &amp; Trusted Advisor</span>
+            <span class="skill-week">Wk 8 · 07/09</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ Foundation for SBF FinOps conceptual dashboard</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">CloudFormation &amp; CI/CD</span>
+            <span class="skill-week">Wk 9 · 07/16</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:0%"></div></div>
+          <div class="skill-sbf">→ Full SBF stack as Infrastructure as Code</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-name">CodePipeline · CI/CD Automation</span>
+            <span class="skill-week">In Progress</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:15%"></div></div>
+          <div class="skill-sbf">→ GitHub → CodePipeline → S3 deploy → CloudFront auto-invalidation · In Progress</div>
+        </div>
+      </div>
+      <p class="skills-note">Progress bars update as modules are completed · Summer 2026</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ CTA ══ -->
+  <section class="section contact-cta">
+    <div class="section-label" style="justify-content:center;">Contact</div>
+    <h2 class="cta-headline">See the Potential?<br><em>Let's Talk.</em></h2>
+    <p class="cta-sub">I'm not looking for a job — I'm looking for someone willing to nurture what they see here. If that's you, let's connect.</p>
+    <button class="cta-btn" onclick="openModal('tech')">Let's Talk Tech ⚙️</button>
+  </section>
+
+  <footer class="page-footer">
+    Built on AWS · S3 · CloudFront (×2) · Route 53 · API Gateway · Lambda · DynamoDB · SES · EventBridge · Airtable
+    <br><br>
+    <span style="color:rgba(255,255,255,0.15);">© Katurah Bobo · singlebougiefree.com</span>
+  </footer>
+
+  <!-- ══ TECH MODAL ══ -->
+  <div class="modal-overlay" id="techModal" onclick="handleOverlayClick(event,'techModal')">
+    <div class="modal tech-modal">
+      <button class="modal-close" onclick="closeModal('techModal')">✕</button>
+      <div class="modal-deco">⚙️</div>
+      <h2 class="modal-title"><em>Let's Talk Tech</em></h2>
+      <p class="modal-prompt">Whether you have ideas, want to collaborate, or just want to connect — slide into the stack.</p>
+      <div class="modal-field">
+        <label for="tech-name">Name</label>
+        <input type="text" id="tech-name" placeholder="Your name">
+      </div>
+      <div class="modal-field">
+        <label for="tech-phone">Phone</label>
+        <input type="tel" id="tech-phone" placeholder="(000) 000-0000">
+      </div>
+      <div class="modal-field">
+        <label for="tech-email">Email</label>
+        <input type="email" id="tech-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="tech-company">Company</label>
+        <input type="text" id="tech-company" placeholder="Where do you ship code?">
+      </div>
+      <div class="modal-field">
+        <label>What brings you here?</label>
+        <div class="pill-selector">
+          <button class="pill-select-btn" id="pill-suggestions" onclick="selectPill('suggestions')">💡 Suggestions</button>
+          <button class="pill-select-btn" id="pill-connect" onclick="selectPill('connect')">🤝 Let's Connect</button>
+        </div>
+      </div>
+      <div class="modal-field">
+        <label for="tech-message">Message</label>
+        <textarea id="tech-message" placeholder="What's on your mind?" maxlength="500" oninput="updateCharCount(this,'tech-count')"></textarea>
+        <div class="char-count" id="tech-count">0 / 500</div>
+      </div>
+      <div class="optin-wrap">
+        <button class="tech-optin-btn" id="techOptinBtn" onclick="toggleTechOptin()">
+          <span class="optin-check" id="techOptinCheck"></span>
+          Alert me for the next release
+        </button>
+      </div>
+      <button class="modal-submit" onclick="submitTech()">Send It ⚙️</button>
+    </div>
+  </div>
+
+  <!-- ══ TECH THANK YOU ══ -->
+  <div class="thankyou-overlay" id="techThankyouOverlay" onclick="closeTechThankyou()">
+    <div class="thankyou-card tech-thankyou" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">⚙️</div>
+      <div class="thankyou-title">Message received.</div>
+      <div class="thankyou-sub">Escalating to management.</div>
+      <div class="thankyou-sig">— Katurah</div>
+      <button class="thankyou-close" onclick="closeTechThankyou()">Close</button>
+    </div>
+  </div>
+
+  <!-- ══ SBF MODAL ══ -->
+  <div class="modal-overlay" id="sbfModal" onclick="handleOverlayClick(event,'sbfModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('sbfModal')">✕</button>
+      <div class="modal-deco">🫖</div>
+      <h2 class="modal-title"><em>Spill the Tea</em></h2>
+      <p class="modal-prompt">What features would you like to see? Is there a resource or website that can help others? All tea is accepted!</p>
+      <div class="modal-field">
+        <label for="sbf-name">Your Name</label>
+        <input type="text" id="sbf-name" placeholder="What do they call you, Baddie?">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-email">Email</label>
+        <input type="email" id="sbf-email" placeholder="your@email.com">
+      </div>
+      <div class="modal-field">
+        <label for="sbf-tea">The Tea ☕</label>
+        <textarea id="sbf-tea" placeholder="Pour it all out..." maxlength="500" oninput="updateCharCount(this,'sbf-count')"></textarea>
+        <div class="char-count" id="sbf-count">0 / 500</div>
+      </div>
+      <div class="optin-wrap">
+        <button class="optin-btn" id="optinBtn" onclick="toggleOptin()">
+          <span class="optin-check" id="optinCheck"></span>
+          Keep me in the tea with updates
+        </button>
+      </div>
+      <button class="modal-submit" onclick="submitSBF()">Send It 🩷</button>
+    </div>
+  </div>
+
+  <!-- ══ SBF THANK YOU ══ -->
+  <div class="thankyou-overlay" id="thankyouOverlay" onclick="closeThankyou()">
+    <div class="thankyou-card" onclick="event.stopPropagation()">
+      <div class="thankyou-emoji">🩷</div>
+      <div class="thankyou-title">Thanks Baddie!</div>
+      <div class="thankyou-sub">The tea has been received.<br>We see you and we appreciate you.</div>
+      <div class="thankyou-sig">Love, Katurah</div>
+      <button class="thankyou-close" onclick="closeThankyou()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById('contactBtn').classList.toggle('open');
+      document.getElementById('contactDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const wrap = document.querySelector('.nav-contact');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+    function openModal(type) {
+      document.getElementById('contactBtn').classList.remove('open');
+      document.getElementById('contactDropdown').classList.remove('open');
+      if (type === 'sbf') { document.getElementById('sbfModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+      if (type === 'tech') { document.getElementById('techModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+    function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+    function updateCharCount(el, countId) {
+      const count = el.value.length;
+      const countEl = document.getElementById(countId);
+      countEl.textContent = count + ' / 500';
+      countEl.classList.toggle('warn', count > 450);
+    }
+    let optedIn = false;
+    function toggleOptin() {
+      optedIn = !optedIn;
+      document.getElementById('optinBtn').classList.toggle('selected', optedIn);
+      document.getElementById('optinCheck').textContent = optedIn ? '✓' : '';
+    }
+    async function submitSBF() {
+      const name = document.getElementById('sbf-name').value.trim();
+      const email = document.getElementById('sbf-email').value.trim();
+      const tea = document.getElementById('sbf-tea').value.trim();
+      if (!name || !email) { alert('Hey Baddie — we need your name and email! 🩷'); return; }
+      const payload = { formType: 'spill-the-tea', name, email, message: tea, optIn: optedIn, submittedAt: new Date().toISOString() };
+      const btn = document.querySelector('#sbfModal .modal-submit');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('sbfModal');
+        document.getElementById('thankyouOverlay').classList.add('open');
+        document.getElementById('sbf-name').value = '';
+        document.getElementById('sbf-email').value = '';
+        document.getElementById('sbf-tea').value = '';
+        document.getElementById('sbf-count').textContent = '0 / 500';
+        optedIn = false;
+        document.getElementById('optinBtn').classList.remove('selected');
+        document.getElementById('optinCheck').textContent = '';
+      } catch (err) { alert('Something went wrong — please try again.'); }
+      finally { btn.disabled = false; btn.textContent = 'Send It 🩷'; }
+    }
+    function closeThankyou() { document.getElementById('thankyouOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    let selectedPill = null;
+    function selectPill(type) {
+      selectedPill = type;
+      document.getElementById('pill-suggestions').classList.toggle('selected', type === 'suggestions');
+      document.getElementById('pill-connect').classList.toggle('selected', type === 'connect');
+    }
+    let techOptedIn = false;
+    function toggleTechOptin() {
+      techOptedIn = !techOptedIn;
+      document.getElementById('techOptinBtn').classList.toggle('selected', techOptedIn);
+      document.getElementById('techOptinCheck').textContent = techOptedIn ? '✓' : '';
+    }
+    async function submitTech() {
+      const name = document.getElementById('tech-name').value.trim();
+      const email = document.getElementById('tech-email').value.trim();
+      const message = document.getElementById('tech-message').value.trim();
+      if (!name || !email) { alert('We need your name and email to connect! ⚙️'); return; }
+      if (!selectedPill) { alert('Please select Suggestions or Let\'s Connect! ⚙️'); return; }
+      const payload = { formType: 'lets-talk-tech', name, phone: document.getElementById('tech-phone').value.trim(), email, company: document.getElementById('tech-company').value.trim(), intent: selectedPill, message, optIn: techOptedIn, submittedAt: new Date().toISOString() };
+      const btn = document.querySelector('#techModal .modal-submit');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://7q3fn9a7j9.execute-api.us-east-1.amazonaws.com/prod/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('Server error');
+        closeModal('techModal');
+        document.getElementById('techThankyouOverlay').classList.add('open');
+        ['tech-name','tech-phone','tech-email','tech-company','tech-message'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('tech-count').textContent = '0 / 500';
+        selectedPill = null;
+        document.getElementById('pill-suggestions').classList.remove('selected');
+        document.getElementById('pill-connect').classList.remove('selected');
+        techOptedIn = false;
+        document.getElementById('techOptinBtn').classList.remove('selected');
+        document.getElementById('techOptinCheck').textContent = '';
+      } catch (err) { alert('Something went wrong — please try again.'); }
+      finally { btn.disabled = false; btn.textContent = 'Send It ⚙️'; }
+    }
+    function closeTechThankyou() { document.getElementById('techThankyouOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('sbfModal'); closeModal('techModal'); closeThankyou(); closeTechThankyou();
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
